@@ -72,7 +72,8 @@ namespace Gamification.Infrastructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Default database Sql Server, you can change it to your preferred database provider.
-            optionsBuilder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GamificationDb;");
+            //optionsBuilder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GamificationDb;");
+            optionsBuilder.UseNpgsql(connectionString: "Host=localhost;Port=5432;Database=GamificationDb;Username=postgres;Password=Sardor0618!;");
         }
     }
 }

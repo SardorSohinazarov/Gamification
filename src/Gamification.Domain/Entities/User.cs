@@ -14,6 +14,14 @@ namespace Gamification.Domain.Entities
         public UserType UserType { get; set; }
     }
 
+    public class UserCourse : Auditable<int>
+    {
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+    }
+
     public class Course : Auditable<int>
     {
         public string Title { get; set; }
@@ -23,13 +31,35 @@ namespace Gamification.Domain.Entities
         public float Duration { get; set; }
         public TimeOnly StartTime { get; set; }
 
+        // 15-avgust 2023
         public DateOnly StartDate { get; set; }
+    }
+
+    public class CourseLesson : Auditable<int>
+    {
+        public Course Course { get; set; }
+        public int CourseId { get; set; }
+
+        public Lesson Lesson { get; set; }
+        public int LessonId { get; set; }
+
+        public LessonStatus Status { get; set; }
     }
 
     public class Lesson : Auditable<int>
     {
         public string Title { get; set; }
         public string Description { get; set; }
+    }
+
+    public class LessonTest : Auditable<int>
+    {
+        public int LessonId { get; set; }
+        public Lesson Lesson { get; set; }
+        public int TestId { get; set; }
+        public Test Test { get; set; }
+
+        public DateTime ScheduledAt { get; set; }
     }
 
     public class Test : Auditable<int>
@@ -39,7 +69,6 @@ namespace Gamification.Domain.Entities
 
         // 1.5 soat davom etadi
         public float Duration { get; set; }
-        public DateOnly StartAt { get; set; }
 
         public TestStatus Status { get; set; }
     }
