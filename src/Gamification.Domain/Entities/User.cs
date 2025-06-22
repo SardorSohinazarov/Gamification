@@ -29,10 +29,10 @@ namespace Gamification.Domain.Entities
 
         // 1.5 soat davom etadi
         public float Duration { get; set; }
-        public TimeOnly StartTime { get; set; }
+        public DateTime StartTime { get; set; }
 
         // 15-avgust 2023
-        public DateOnly StartDate { get; set; }
+        public DateTime StartDate { get; set; }
     }
 
     public class CourseLesson : Auditable<int>
