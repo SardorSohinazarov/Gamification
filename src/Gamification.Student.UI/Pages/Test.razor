@@ -1,19 +1,36 @@
 ﻿@page "/test"
 
-<h2>Quyidagi bo‘limlardan birini tanlang:</h2>
+@page "/bo-lim"
 
-<div class="section">
-    <div class="card"><strong>Present perfect</strong><span>30 ta test</span><p>present perfect bo‘yicha takrorlash</p></div>
-    <div class="card"><strong>To be</strong><span>25 ta test</span><p>to be bo‘yicha takrorlash</p></div>
-    <div class="card"><strong>Present continous</strong><span>20 ta test</span><p>present perfect bo‘yicha takrorlash</p></div>
-    <div class="card"><strong>Present perfect</strong><span>25 ta test</span><p>present perfect bo‘yicha takrorlash</p></div>
-    <div class="card"><strong>To be (takrorlash)</strong><span>30 ta test</span><p>to be chuqurlashgan takrorlash</p></div>
-    <div class="card"><strong>Past perfect</strong><span>30 ta test</span><p>past perfect bo‘yicha takrorlash</p></div>
+<h3 class="title">Quyidagi bo‘limlardan birini tanlang:</h3>
+
+<div class="section-list">
+    @foreach (var section in Sections)
+    {
+        <div class="card">
+            <strong>@section.Title</strong>
+            <span>@section.Count ta test</span>
+            <p>@section.Description</p>
+        </div>
+    }
 </div>
 
-<div class="navbar">
-    <div>🏠<br>Asosiy</div>
-    <div>📖<br>Learning</div>
-    <div>🎁<br>Sovg'alar</div>
-    <div>👤<br>Profile</div>
-</div>
+<NavMenu />
+@code {
+    public class SectionItem
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public int Count { get; set; }
+    }
+
+    List<SectionItem> Sections = new()
+    {
+        new() { Title = "Present perfect", Description = "present perfect bo‘yicha takrorlash", Count = 30 },
+        new() { Title = "To be", Description = "to be bo‘yicha takrorlash", Count = 25 },
+        new() { Title = "Present continous", Description = "present perfect bo‘yicha takrorlash", Count = 20 },
+        new() { Title = "Present perfect", Description = "present perfect bo‘yicha takrorlash", Count = 25 },
+        new() { Title = "To be (takrorlash)", Description = "to be chuqurlashgan takrorlash", Count = 30 },
+        new() { Title = "Past perfect", Description = "past perfect bo‘yicha takrorlash", Count = 30 }
+    };
+}

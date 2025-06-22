@@ -101,3 +101,63 @@ a, .btn-link {
 code {
     color: #c02d76;
 }
+
+body {
+    background-color: #d9f3ff;
+    font-family: sans-serif;
+    padding-bottom: 80px; /* Pastki navbar uchun joy */
+    margin: 0;
+}
+
+.title {
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.section-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 12px;
+}
+
+.card {
+    background: linear-gradient(to right, #6f42c1, #00cfff);
+    border-radius: 12px;
+    color: white;
+    padding: 14px;
+    position: relative;
+    font-size: 14px;
+    text-align: left;
+}
+
+    .card span {
+        position: absolute;
+        right: 14px;
+        top: 14px;
+        font-weight: bold;
+    }
+
+    .card p {
+        font-size: 12px;
+        margin-top: 4px;
+        opacity: 0.9;
+    }
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to right, #0099ff, #00ccff);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    font-size: 12px;
+    color: white;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+    .bottom-nav .icon {
+        font-size: 18px;
+    }
