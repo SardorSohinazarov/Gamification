@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C38B9FC6-D2EC-43E5-BDA8-481322F655F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamification.Domain", "src\Gamification.Domain\Gamification.Domain.csproj", "{801AD84C-6F1D-42C2-AA58-EC4C07DA7EFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamification.Application", "src\Gamification.Application\Gamification.Application.csproj", "{915C11B7-C10B-4E78-81B6-3FAA6BD89AEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamification.Infrastructure", "src\Gamification.Infrastructure\Gamification.Infrastructure.csproj", "{36CF482A-3F07-42C1-BAC9-1E3821748419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamification.Api", "src\Gamification.Api\Gamification.Api.csproj", "{6CDC0E68-7D78-4296-922D-28C083C80EE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamification.UI", "src\Gamification.UI\Gamification.UI.csproj", "{582C1A50-FA56-4077-A4B0-992ACEDA1E7C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{801AD84C-6F1D-42C2-AA58-EC4C07DA7EFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{801AD84C-6F1D-42C2-AA58-EC4C07DA7EFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{801AD84C-6F1D-42C2-AA58-EC4C07DA7EFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{801AD84C-6F1D-42C2-AA58-EC4C07DA7EFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{915C11B7-C10B-4E78-81B6-3FAA6BD89AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{915C11B7-C10B-4E78-81B6-3FAA6BD89AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{915C11B7-C10B-4E78-81B6-3FAA6BD89AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{915C11B7-C10B-4E78-81B6-3FAA6BD89AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CF482A-3F07-42C1-BAC9-1E3821748419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CF482A-3F07-42C1-BAC9-1E3821748419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CF482A-3F07-42C1-BAC9-1E3821748419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CF482A-3F07-42C1-BAC9-1E3821748419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CDC0E68-7D78-4296-922D-28C083C80EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDC0E68-7D78-4296-922D-28C083C80EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDC0E68-7D78-4296-922D-28C083C80EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDC0E68-7D78-4296-922D-28C083C80EE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582C1A50-FA56-4077-A4B0-992ACEDA1E7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582C1A50-FA56-4077-A4B0-992ACEDA1E7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582C1A50-FA56-4077-A4B0-992ACEDA1E7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582C1A50-FA56-4077-A4B0-992ACEDA1E7C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{801AD84C-6F1D-42C2-AA58-EC4C07DA7EFF} = {C38B9FC6-D2EC-43E5-BDA8-481322F655F5}
+		{915C11B7-C10B-4E78-81B6-3FAA6BD89AEF} = {C38B9FC6-D2EC-43E5-BDA8-481322F655F5}
+		{36CF482A-3F07-42C1-BAC9-1E3821748419} = {C38B9FC6-D2EC-43E5-BDA8-481322F655F5}
+		{6CDC0E68-7D78-4296-922D-28C083C80EE3} = {C38B9FC6-D2EC-43E5-BDA8-481322F655F5}
+		{582C1A50-FA56-4077-A4B0-992ACEDA1E7C} = {C38B9FC6-D2EC-43E5-BDA8-481322F655F5}
+	EndGlobalSection
+EndGlobal
