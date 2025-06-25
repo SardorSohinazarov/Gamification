@@ -1,9 +1,10 @@
 ﻿<div class="page" id="question">
-    <h2> @question.Text</h2>
+    <h2>@question.Text</h2>
 
     @foreach (var answer in question.Answers)
     {
-        <button class="option" @onclick="() => Select(answer.Id)">
+        <button class="option @(selectedAnswerId == answer.Id ? "selected" : "")"
+                @onclick="() => Select(answer.Id)">
             @answer.Text
         </button>
     }
@@ -12,18 +13,10 @@
 @code {
     [Parameter] public Domain.Entities.Question question { get; set; }
     [Parameter] public EventCallback<int> OnOptionSelected { get; set; }
-    private int answerId;
+    [Parameter] public int selectedAnswerId { get; set; }
+
     private void Select(int id)
     {
-        answerId = id;
-        // Logic to handle the selected option
-    }
-    private void NextQuestion()
-    {
-        // Logic to navigate to the next question
-    }
-    private void Restart()
-    {
-        // Logic to restart the quiz
+        OnOptionSelected.InvokeAsync(id);
     }
 }

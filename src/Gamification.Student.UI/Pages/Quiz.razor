@@ -1,58 +1,57 @@
 ﻿@page "/quiz"
-
 <PageTitle>Quiz</PageTitle>
 
 <h3>Testni Yeching</h3>
 
 @if (!isFinished)
 {
-    <Question question="@CurrentQuestion" OnOptionSelected="OnOptionSelected" />
+    <Question question="@CurrentQuestion" OnOptionSelected="OnOptionSelected" selectedAnswerId="@GetSelectedAnswerId(CurrentQuestion.Id)" />
 }
 else
 {
-    <h4>Natija: @CorrectCount / @Questions.Count</h4>
+    @* <h4>Natija: @CorrectCount / @Questions.Count</h4> *@
+    <button class="start-btn" @onclick="RestartQuiz">Testni Qayta Boshlash</button>
 }
 
 <div class="nav-arrows">
-    <span> <img src="./images/left-arrow.svg"> </span>
-    <span> <img src="./images/right-arrow.svg"> </span>
+    <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
+    <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
 </div>
-<button class="start-btn"> Testni yakunlash</button>
 
 @code {
     private List<Domain.Entities.Question> Questions;
     private Domain.Entities.Question CurrentQuestion;
-
     private int currentIndex = 0;
     private bool isFinished = false;
-    private int CorrectCount => 1;
+
+    private Dictionary<int, int> SelectedAnswers = new(); // questionId -> answerId
 
     protected override void OnInitialized()
     {
         Questions = new List<Domain.Entities.Question>
         {
-            new Domain.Entities.Question
+            new Domain.Entities.Question()
             {
                 Id = 1,
                 Text = "Blazor nima?",
                 Answers = new List<Domain.Entities.Answer>
                 {
-                    new Domain.Entities.Answer { Id = 1, Text = "Microsoft tomonidan ishlab chiqilgan veb-ramka", IsCorrect = true },
-                    new Domain.Entities.Answer { Id = 2, Text = "JavaScript kutubxonasi", IsCorrect = false },
-                    new Domain.Entities.Answer { Id = 3, Text = "Python dasturlash tili", IsCorrect = false },
-                    new Domain.Entities.Answer { Id = 4, Text = "Mobil ilovalar uchun platforma", IsCorrect = false }
-                },
+                    new Domain.Entities.Answer { Id = 1, Text = "Microsoft tomonidan ishlab chiqilgan veb-ramka"},
+                    new Domain.Entities.Answer { Id = 2, Text = "JavaScript kutubxonasi"},
+                    new Domain.Entities.Answer { Id = 3, Text = "Python dasturlash tili"},
+                    new Domain.Entities.Answer { Id = 4, Text = "Mobil ilovalar uchun platforma"}
+                }
             },
-            new Domain.Entities.Question
+            new Domain.Entities.Question()
             {
                 Id = 2,
                 Text = "C# qaysi kompaniyaga tegishli?",
                 Answers = new List<Domain.Entities.Answer>
                 {
-                    new Domain.Entities.Answer { Id = 1, Text = "Microsoft", IsCorrect = true },
-                    new Domain.Entities.Answer { Id = 2, Text = "Google", IsCorrect = false },
-                    new Domain.Entities.Answer { Id = 3, Text = "Apple", IsCorrect = false },
-                    new Domain.Entities.Answer { Id = 4, Text = "Facebook", IsCorrect = false }
+                    new Domain.Entities.Answer { Id = 1, Text = "Microsoft"},
+                    new Domain.Entities.Answer { Id = 2, Text = "Google"},
+                    new Domain.Entities.Answer { Id = 3, Text = "Apple"},
+                    new Domain.Entities.Answer { Id = 4, Text = "Facebook"}
                 },
             }
         };
@@ -60,10 +59,14 @@ else
         CurrentQuestion = Questions[currentIndex];
     }
 
-    private void OnOptionSelected(int index)
+    private int GetSelectedAnswerId(int questionId)
     {
-        // hamma javoblarni yig'ib turamiz
-        // avtomatik saqlanmoqda SelectedIndex
+        return SelectedAnswers.ContainsKey(questionId) ? SelectedAnswers[questionId] : 0;
+    }
+
+    private void OnOptionSelected(int answerId)
+    {
+        SelectedAnswers[CurrentQuestion.Id] = answerId;
     }
 
     private void NextQuestion()
@@ -71,10 +74,28 @@ else
         if (currentIndex + 1 < Questions.Count)
         {
             currentIndex++;
+            CurrentQuestion = Questions[currentIndex];
         }
         else
         {
             isFinished = true;
         }
+    }
+
+    private void PreviousQuestion()
+    {
+        if (currentIndex > 0)
+        {
+            currentIndex--;
+            CurrentQuestion = Questions[currentIndex];
+        }
+    }
+
+    private void RestartQuiz()
+    {
+        currentIndex = 0;
+        isFinished = false;
+        SelectedAnswers.Clear();
+        CurrentQuestion = Questions[currentIndex];
     }
 }
