@@ -9,7 +9,7 @@
 }
 else
 {
-    @* <h4>Natija: @CorrectCount / @Questions.Count</h4> *@
+    <h4>Natija: @ShowResult()</h4>
     <button class="start-btn" @onclick="RestartQuiz">Testni Qayta Boshlash</button>
 }
 
@@ -17,6 +17,7 @@ else
     <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
     <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
 </div>
+
 
 @code {
     private List<Domain.Entities.Question> Questions;
@@ -97,5 +98,28 @@ else
         isFinished = false;
         SelectedAnswers.Clear();
         CurrentQuestion = Questions[currentIndex];
+    }
+
+    private string ShowResult()
+    {
+        string result = string.Empty;
+        foreach (var selectedAnswer in SelectedAnswers)
+        {
+            var question = Questions.FirstOrDefault(q => q.Id == selectedAnswer.Key);
+            if (question != null)
+            {
+                var answer = question.Answers.FirstOrDefault(a => a.Id == selectedAnswer.Value);
+                if (answer != null && answer.IsCorrect)
+                {
+                    result += $"{question.Text}: {answer.Text} (To'g'ri)<br/>";
+                }
+                else
+                {
+                    result += $"{question.Text}: Noto'g'ri<br/>";
+                }
+            }
+        }
+        
+        return result;
     }
 }
