@@ -1,0 +1,127 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #e0f7ff;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+.gift-section {
+    background: linear-gradient(to top right, #4760FF, #0DCCFF);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 20px;
+}
+
+    .gift-section .profile-pic {
+        width: 240px;
+        height: 240px;
+        object-fit: cover;
+        background-color: #e0f7ff;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        margin-bottom: 15px;
+    }
+
+    .gift-section h2 {
+        color: white;
+        margin: 0;
+        font-size: 30px;
+    }
+
+h3 {
+    text-align: center;
+    font-size: 70px;
+    margin: 0;
+    background: linear-gradient(to right, #4760FF, #0DCCFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.page {
+    padding: 20px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to right, #007fff, #00bfff);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+    .nav-item img {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 5px;
+    }
+
+    .nav-item.active {
+        font-weight: bold;
+    }
+
+.card {
+    background: linear-gradient(to right, #4760FF, #0DCCFF);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .card p {
+        font-size: 12px;
+        margin: 5px 0 0 0;
+        opacity: 0.9;
+    }
+
+    .card span {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.coin-icon {
+    width: 60px;
+    vertical-align: middle;
+}
