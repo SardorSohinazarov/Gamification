@@ -1,0 +1,29 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #e0f7ff;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+.gift-section {
+    background: linear-gradient(to top right, #4760FF, #0DCCFF);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    text-align: center;
+    padding: 100px;
+}
+
+    .gift-section img {
+        width: 200px;
+        hight: auto;
+    }
+
+h3 {
+    text-align: center;
+    font-size: 70px;
+    background: linear-gradient(to right, #0bbafb, #4285ec);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
