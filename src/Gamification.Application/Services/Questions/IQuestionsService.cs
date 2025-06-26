@@ -5,17 +5,19 @@
 
 using Common.Paginations.Models;
 using Common;
+using DataTransferObjects.Questions;
 using Gamification.Domain.Entities;
 
 namespace Services.Questions
 {
     public interface IQuestionsService
     {
-        Task<Question> AddAsync(Question question);
-        Task<List<Question>> GetAllAsync();
-        Task<ListResult<Question>> FilterAsync(PaginationOptions filter);
-        Task<Question> GetByIdAsync(int id);
-        Task<Question> UpdateAsync(int id, Question question);
-        Task<Question> DeleteAsync(int id);
+        Task<QuestionViewModel> AddAsync(QuestionCreationDto questionCreationDto);
+        Task<List<QuestionViewModel>> GetAllAsync();
+        Task<List<QuestionViewModel>> GetAllByTestAsync(int testId);
+        Task<ListResult<QuestionViewModel>> FilterAsync(PaginationOptions filter);
+        Task<QuestionViewModel> GetByIdAsync(int id);
+        Task<QuestionViewModel> UpdateAsync(int id, QuestionModificationDto questionModificationDto);
+        Task<QuestionViewModel> DeleteAsync(int id);
     }
 }

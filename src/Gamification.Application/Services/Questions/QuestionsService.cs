@@ -10,6 +10,7 @@ using Common.Paginations.Models;
 using Common.Paginations.Extensions;
 using Common.ServiceAttribute;
 using Common;
+using DataTransferObjects.Questions;
 using Gamification.Infrastructure;
 using Gamification.Domain.Entities;
 
@@ -26,54 +27,81 @@ namespace Services.Questions
             _mapper = mapper;
         }
 
-        public async Task<Question> AddAsync(Question question)
+        public async Task<QuestionViewModel> AddAsync(QuestionCreationDto questionCreationDto)
         {
-            var entity = _mapper.Map<Question>(question);
+            var entity = _mapper.Map<Question>(questionCreationDto);
+            entity.Answers = await _gamificationDb.Set<Answer>().Where(x => questionCreationDto.AnswersIds.Contains(x.Id)).ToListAsync();
             var entry = await _gamificationDb.Set<Question>().AddAsync(entity);
             await _gamificationDb.SaveChangesAsync();
-            return entry.Entity;
+            return _mapper.Map<QuestionViewModel>(entry.Entity);
         }
 
-        public async Task<List<Question>> GetAllAsync()
+        public async Task<List<QuestionViewModel>> GetAllAsync()
         {
-            var entities = await _gamificationDb.Set<Question>().ToListAsync();
-            return entities;
+            var entities = await _gamificationDb.Set<Question>()
+                .Include(x => x.Answers)
+                .ToListAsync();
+            return _mapper.Map<List<QuestionViewModel>>(entities);
         }
 
-        public async Task<ListResult<Question>> FilterAsync(PaginationOptions filter)
+        public async Task<List<QuestionViewModel>> GetAllByTestAsync(int testId)
+        {
+            var entities = await _gamificationDb.Set<Question>()
+                .Where(x => x.TestId == testId)
+                .Include(x => x.Answers)
+                .ToListAsync();
+
+            return _mapper.Map<List<QuestionViewModel>>(entities);
+        }
+
+        public async Task<ListResult<QuestionViewModel>> FilterAsync(PaginationOptions filter)
         {
             var paginatedResult = await _gamificationDb.Set<Question>().ApplyPaginationAsync(filter);
-            var Questions = _mapper.Map<List<Question>>(paginatedResult.paginatedList);
-            return new ListResult<Question>(paginatedResult.paginationMetadata, Questions);
+            var Questions = _mapper.Map<List<QuestionViewModel>>(paginatedResult.paginatedList);
+            return new ListResult<QuestionViewModel>(paginatedResult.paginationMetadata, Questions);
         }
 
-        public async Task<Question> GetByIdAsync(int id)
+        public async Task<QuestionViewModel> GetByIdAsync(int id)
         {
             var entity = await _gamificationDb.Set<Question>().FirstOrDefaultAsync(x => x.Id == id);
             if (entity == null)
                 throw new InvalidOperationException($"Question with Id {id} not found.");
-            return entity;
+            return _mapper.Map<QuestionViewModel>(entity);
         }
 
-        public async Task<Question> UpdateAsync(int id, Question question)
+        public async Task<QuestionViewModel> UpdateAsync(int id, QuestionModificationDto questionModificationDto)
         {
             var entity = await _gamificationDb.Set<Question>().FirstOrDefaultAsync(x => x.Id == id);
             if (entity == null)
                 throw new InvalidOperationException($"Question with {id} not found.");
-            _mapper.Map(question, entity);
+            _mapper.Map(questionModificationDto, entity);
+            entity.Answers = await _gamificationDb.Set<Answer>().Where(x => questionModificationDto.AnswersIds.Contains(x.Id)).ToListAsync();
             var entry = _gamificationDb.Set<Question>().Update(entity);
             await _gamificationDb.SaveChangesAsync();
-            return entry.Entity;
+            return _mapper.Map<QuestionViewModel>(entry.Entity);
         }
 
-        public async Task<Question> DeleteAsync(int id)
+        public async Task<QuestionViewModel> DeleteAsync(int id)
         {
             var entity = await _gamificationDb.Set<Question>().FirstOrDefaultAsync(x => x.Id == id);
             if (entity == null)
                 throw new InvalidOperationException($"Question with {id} not found.");
             var entry = _gamificationDb.Set<Question>().Remove(entity);
             await _gamificationDb.SaveChangesAsync();
-            return entry.Entity;
+            return _mapper.Map<QuestionViewModel>(entry.Entity);
+        }
+    }
+
+    /// <summary>
+    /// AutoMapper mapping profile for Question entity.
+    /// </summary>
+    public class QuestionMappingProfile : Profile
+    {
+        public QuestionMappingProfile()
+        {
+            CreateMap<Question, QuestionViewModel>();
+            CreateMap<QuestionCreationDto, Question>();
+            CreateMap<QuestionModificationDto, Question>();
         }
     }
 }

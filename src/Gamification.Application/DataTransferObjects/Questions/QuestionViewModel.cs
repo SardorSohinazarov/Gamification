@@ -4,21 +4,22 @@
 //-----------------------------------------------------------------------
 
 using System;
-using System.Text.Json.Serialization;
 using Gamification.Domain.Entities;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
-namespace DataTransferObjects.Tests;
+namespace DataTransferObjects.Questions;
 
-public class TestViewModel
+public class QuestionViewModel
 {
-    [JsonPropertyName("title")]
-    public string Title { get; set; }
-    [JsonPropertyName("description")]
-    public string Description { get; set; }
-    [JsonPropertyName("startDate")]
-    public float Duration { get; set; }
-    [JsonPropertyName("endDate")]
-    public TestStatus Status { get; set; }
+    [JsonPropertyName("text")]
+    public string Text { get; set; }
+    [JsonPropertyName("testId")]
+    public int TestId { get; set; }
+    [JsonPropertyName("test")]
+    public Test Test { get; set; }
+    [JsonPropertyName("answers")]
+    public List<Answer> Answers { get; set; }
     [JsonPropertyName("createdBy")]
     public string CreatedBy { get; set; }
     [JsonPropertyName("created")]
