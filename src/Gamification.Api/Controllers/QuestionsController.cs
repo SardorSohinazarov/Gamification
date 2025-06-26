@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Questions;
 using Common.Paginations.Models;
 using Common;
+using DataTransferObjects.Questions;
 using Gamification.Domain.Entities;
 
 namespace Controllers
@@ -22,39 +23,45 @@ namespace Controllers
         }
 
         [HttpPost]
-        public async Task<Result<Question>> AddAsync(Question question)
+        public async Task<Result<QuestionViewModel>> AddAsync(QuestionCreationDto questionCreationDto)
         {
-            return Result<Question>.Success(await _questionsService.AddAsync(question));
+            return Result<QuestionViewModel>.Success(await _questionsService.AddAsync(questionCreationDto));
         }
 
         [HttpGet]
-        public async Task<Result<List<Question>>> GetAllAsync()
+        public async Task<Result<List<QuestionViewModel>>> GetAllAsync()
         {
-            return Result<List<Question>>.Success(await _questionsService.GetAllAsync());
+            return Result<List<QuestionViewModel>>.Success(await _questionsService.GetAllAsync());
+        }
+
+        [HttpGet("test/{testId}")]
+        public async Task<Result<List<QuestionViewModel>>> GetAllByTestAsync(int testId)
+        {
+            return Result<List<QuestionViewModel>>.Success(await _questionsService.GetAllAsync());
         }
 
         [HttpPost("filter")]
-        public async Task<Result<ListResult<Question>>> FilterAsync(PaginationOptions filter)
+        public async Task<Result<ListResult<QuestionViewModel>>> FilterAsync(PaginationOptions filter)
         {
-            return Result<ListResult<Question>>.Success(await _questionsService.FilterAsync(filter));
+            return Result<ListResult<QuestionViewModel>>.Success(await _questionsService.FilterAsync(filter));
         }
 
         [HttpGet("{id}")]
-        public async Task<Result<Question>> GetByIdAsync(int id)
+        public async Task<Result<QuestionViewModel>> GetByIdAsync(int id)
         {
-            return Result<Question>.Success(await _questionsService.GetByIdAsync(id));
+            return Result<QuestionViewModel>.Success(await _questionsService.GetByIdAsync(id));
         }
 
         [HttpPut("{id}")]
-        public async Task<Result<Question>> UpdateAsync(int id, Question question)
+        public async Task<Result<QuestionViewModel>> UpdateAsync(int id, QuestionModificationDto questionModificationDto)
         {
-            return Result<Question>.Success(await _questionsService.UpdateAsync(id, question));
+            return Result<QuestionViewModel>.Success(await _questionsService.UpdateAsync(id, questionModificationDto));
         }
 
         [HttpDelete("{id}")]
-        public async Task<Result<Question>> DeleteAsync(int id)
+        public async Task<Result<QuestionViewModel>> DeleteAsync(int id)
         {
-            return Result<Question>.Success(await _questionsService.DeleteAsync(id));
+            return Result<QuestionViewModel>.Success(await _questionsService.DeleteAsync(id));
         }
     }
 }
