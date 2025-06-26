@@ -6,14 +6,15 @@
 @page "/questions/create"
 @rendermode InteractiveServer
 @using System
-@using Gamification.Domain.Entities
+@using System.Collections.Generic
+@using DataTransferObjects.Questions
 @using Services.Questions
 @inject IQuestionsService QuestionService
 @inject NavigationManager NavigationManager
 
 <h3>Create New Question</h3>
 
-<EditForm FormName="Question" Model="@question" OnValidSubmit="() => HandleValidSubmit()">
+<EditForm FormName="QuestionCreationDto" Model="@question" OnValidSubmit="() => HandleValidSubmit()">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -27,11 +28,6 @@
         <InputNumber id="testid" class="form-control" @bind-Value="question.TestId" />
         <ValidationMessage For="@(() => question.TestId)" />
     </div>
-    @* <div class="form-group mb-3"> *@
-    @*     <label for="test">Test:</label> *@
-    @*     <InputText id="test" class="form-control" @bind-Value="question.Test" /> *@
-    @*     <ValidationMessage For="@(() => question.Test)" /> *@
-    @* </div> *@
     <div class="form-group mb-3">
         <label for="createdby">CreatedBy:</label>
         <InputText id="createdby" class="form-control" @bind-Value="question.CreatedBy" />
@@ -52,11 +48,6 @@
         <InputDate id="lastmodified" class="form-control" @bind-Value="question.LastModified" />
         <ValidationMessage For="@(() => question.LastModified)" />
     </div>
-    <div class="form-group mb-3">
-        <label for="id">Id:</label>
-        <InputNumber id="id" class="form-control" @bind-Value="question.Id" />
-        <ValidationMessage For="@(() => question.Id)" />
-    </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>
@@ -64,7 +55,7 @@
 
 @code {
     [SupplyParameterFromForm]
-    public Question question { get; set; } = new Question();
+    public QuestionCreationDto question { get; set; } = new QuestionCreationDto();
 
     private async Task HandleValidSubmit()
     {

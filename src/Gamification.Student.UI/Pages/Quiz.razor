@@ -1,11 +1,24 @@
-﻿@page "/quiz"
+﻿@page "/quiz/{id:int}"
+@using System.Text.Json
+@using DataTransferObjects.Questions
+@using Gamification.Student.UI.Services.Quiz
+@inject IQuizService QuizService
 <PageTitle>Quiz</PageTitle>
 
 <h3>Testni Yeching</h3>
 
-@if (!isFinished)
+@if (Questions == null)
 {
-    <Question question="@CurrentQuestion" OnOptionSelected="OnOptionSelected" selectedAnswerId="@GetSelectedAnswerId(CurrentQuestion.Id)" />
+    <p>Yuklanmoqda...</p>
+}
+else if (!isFinished)
+{
+    if(CurrentQuestion is not null){
+        <Question question="@CurrentQuestion" OnOptionSelected="OnOptionSelected" selectedAnswerId="@GetSelectedAnswerId(CurrentQuestion.Id)" />
+    }
+    else{
+        <p>Hozircha test mavjud emas.</p>
+    }
 }
 else
 {
@@ -20,44 +33,21 @@ else
 
 
 @code {
-    private List<Domain.Entities.Question> Questions;
-    private Domain.Entities.Question CurrentQuestion;
+    [Parameter]
+    public int id { get; set; }
+    private List<QuestionViewModel> Questions;
+    private QuestionViewModel? CurrentQuestion;
     private int currentIndex = 0;
     private bool isFinished = false;
 
     private Dictionary<int, int> SelectedAnswers = new(); // questionId -> answerId
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Questions = new List<Domain.Entities.Question>
-        {
-            new Domain.Entities.Question()
-            {
-                Id = 1,
-                Text = "Blazor nima?",
-                Answers = new List<Domain.Entities.Answer>
-                {
-                    new Domain.Entities.Answer { Id = 1, Text = "Microsoft tomonidan ishlab chiqilgan veb-ramka"},
-                    new Domain.Entities.Answer { Id = 2, Text = "JavaScript kutubxonasi"},
-                    new Domain.Entities.Answer { Id = 3, Text = "Python dasturlash tili"},
-                    new Domain.Entities.Answer { Id = 4, Text = "Mobil ilovalar uchun platforma"}
-                }
-            },
-            new Domain.Entities.Question()
-            {
-                Id = 2,
-                Text = "C# qaysi kompaniyaga tegishli?",
-                Answers = new List<Domain.Entities.Answer>
-                {
-                    new Domain.Entities.Answer { Id = 1, Text = "Microsoft"},
-                    new Domain.Entities.Answer { Id = 2, Text = "Google"},
-                    new Domain.Entities.Answer { Id = 3, Text = "Apple"},
-                    new Domain.Entities.Answer { Id = 4, Text = "Facebook"}
-                },
-            }
-        };
-
-        CurrentQuestion = Questions[currentIndex];
+        Questions = await QuizService.GetQuestionsAsync(id);
+        
+        if (Questions is { Count: > 0 })
+            CurrentQuestion = Questions[currentIndex];
     }
 
     private int GetSelectedAnswerId(int questionId)
@@ -103,22 +93,8 @@ else
     private string ShowResult()
     {
         string result = string.Empty;
-        foreach (var selectedAnswer in SelectedAnswers)
-        {
-            var question = Questions.FirstOrDefault(q => q.Id == selectedAnswer.Key);
-            if (question != null)
-            {
-                var answer = question.Answers.FirstOrDefault(a => a.Id == selectedAnswer.Value);
-                if (answer != null && answer.IsCorrect)
-                {
-                    result += $"{question.Text}: {answer.Text} (To'g'ri)<br/>";
-                }
-                else
-                {
-                    result += $"{question.Text}: Noto'g'ri<br/>";
-                }
-            }
-        }
+
+        result = JsonSerializer.Serialize(SelectedAnswers, new JsonSerializerOptions { WriteIndented = true });
         
         return result;
     }

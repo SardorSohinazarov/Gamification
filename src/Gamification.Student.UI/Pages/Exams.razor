@@ -1,52 +1,58 @@
 ﻿@page "/exams"
+@using DataTransferObjects.Tests
+@using DataTransferObjects.Tests
+@using Gamification.Student.UI.Services
+@using Gamification.Student.UI.Services.Tests
+@inject ITestService TestService
 
 <PageTitle>Exams</PageTitle>
 
-<!-- Test Bo'limlari -->
 <div class="page" id="sections">
     <h2>Quyidagi bo’limlardan birini tanlang:</h2>
-    <div class="card">
-        <div>
-            <strong>Present perfect</strong>
-            <p>present perfect bo‘yicha takrorlash</p>
-        </div>
-        <span>30 ta test</span>
-    </div>
-    <div class="card">
-        <div>
-            <strong>To be</strong>
-            <p>to be bo‘yicha takrorlash</p>
-        </div>
-        <span>25 ta test</span>
-    </div>
-    <div class="card">
-        <div>
-            <strong>Present continous</strong>
-            <p>present perfect bo‘yicha takrorlash</p>
-        </div>
-        <span>20 ta test</span>
-    </div>
-    <div class="card">
-        <div>
-            <strong>Present perfect</strong>
-            <p>present perfect bo‘yicha takrorlash</p>
-        </div>
-        <span>25 ta test</span>
-    </div>
-    <div class="card">
-        <div>
-            <strong>To be (takrorlash)</strong>
-            <p>to be chuqurlashgan takrorlash</p>
-        </div>
-        <span>30 ta test</span>
-    </div>
-    <div class="card">
-        <div>
-            <strong>Past perfect</strong>
-            <p>past perfect bo‘yicha takrorlash</p>
-        </div>
-        <span>30 ta test</span>
-    </div>
+
+    @if (tests == null)
+    {
+        <p>Testlar yuklanmoqda...</p>
+    }
+    else if (tests.Count == 0)
+    {
+        <p>Hozircha test mavjud emas.</p>
+    }
+    else{
+        @foreach(var test in tests){
+            <a class="card" href="/quiz/@test.Id">
+                <div>
+                    <strong>@test.Title</strong>
+                    <p>@test.Description</p>
+                </div>
+                <span>@test.Duration</span>
+            </a>
+        }
+    @* <div class="card"> *@
+    @*     <div> *@
+    @*         <strong>Present perfect</strong> *@
+    @*         <p>present perfect bo‘yicha takrorlash</p> *@
+    @*     </div> *@
+    @*     <span>30 ta test</span> *@
+    @* </div> *@
+    }
 </div>
 
 <NavMenu />
+
+@code{
+    private List<TestViewModel> tests;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            tests = await TestService.GetTestsAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Xatolik: " + ex.Message);
+            tests = new();
+        }
+    }
+}

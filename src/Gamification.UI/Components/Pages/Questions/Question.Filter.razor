@@ -10,6 +10,8 @@
 @using Common.Paginations.Models
 @using System
 @using Gamification.Domain.Entities
+@using System.Collections.Generic
+@using DataTransferObjects.Questions
 @using Services.Questions
 @inject IQuestionsService QuestionService
 
@@ -29,6 +31,7 @@ else
                 <th>#</th>
                 <th>Text</th>
                 <th>Test</th>
+
                 <th>CreatedBy</th>
                 <th>Created</th>
                 <th>LastModifiedBy</th>
@@ -58,6 +61,7 @@ else
                     {
                         <td>None</td>
                     }
+
 
                     @if(@item.CreatedBy != default)
                     {
@@ -107,7 +111,7 @@ else
 }
 
 @code {
-    private List<Question> Questions { get; set; }
+    private List<QuestionViewModel> Questions { get; set; }
     private PaginationOptions PaginationOptions { get; set; }
     private PaginationMetadata PaginationMetadata { get; set; }
 
