@@ -5,8 +5,10 @@
     <div class="variants">
         @foreach (var answer in question.Answers)
         {
-            <button style="background-color:@(selectedAnswerId == answer.Id ? "green":"blue")" class="option @(selectedAnswerId == answer.Id ? "selected" : "")"
-                    @onclick="() => Select(answer.Id)">
+            <button
+                style="background-color:@(selectedAnswerId == answer.Id ? "green":"blue")"
+                class="option @(selectedAnswerId == answer.Id ? "selected" : "")"
+                @onclick="() => Select(answer.Id)">
                 @answer.Text
             </button>
         }
