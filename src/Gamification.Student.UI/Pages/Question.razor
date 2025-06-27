@@ -2,13 +2,15 @@
 <div class="page" id="question">
     <h2>@question.Text</h2>
 
-    @foreach (var answer in question.Answers)
-    {
-        <button class="option @(selectedAnswerId == answer.Id ? "selected" : "")"
-                @onclick="() => Select(answer.Id)">
-            @answer.Text
-        </button>
-    }
+    <div class="variants">
+        @foreach (var answer in question.Answers)
+        {
+            <button style="background-color:@(selectedAnswerId == answer.Id ? "green":"blue")" class="option @(selectedAnswerId == answer.Id ? "selected" : "")"
+                    @onclick="() => Select(answer.Id)">
+                @answer.Text
+            </button>
+        }
+    </div>
 </div>
 
 @code {
