@@ -44,7 +44,7 @@ h2 {
     flex: 1 1 200px;
     max-width: 300px;
     padding: 15px 40px;
-    background: linear-gradient(to right, #ff4e50, #f9d423); /* Qizil-sariq gradient */
+    background: linear-gradient(to right, #800080, #ff1493);
     color: white;
     border: none;
     border-radius: 12px;
@@ -58,7 +58,7 @@ h2 {
     flex: 1 1 200px;
     max-width: 300px;
     padding: 15px 40px;
-    background: linear-gradient(to right, #ff4e50, #f9d423); /* Qizil-sariq gradient */
+    background: linear-gradient(to right, #800080, #ff1493);
     color: white;
     border: none;
     border-radius: 12px;

@@ -21,8 +21,12 @@
                       selectedAnswerIds="@GetSelectedAnswerIds(CurrentQuestion.Id)" />
 
             <div class="nav-arrows">
-                <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
-                <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
+                @if (Questions.First()?.Id != CurrentQuestion.Id){
+                    <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
+                }
+                @if (Questions.Last()?.Id != CurrentQuestion.Id){
+                    <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
+                }
             </div>
 
             if (Questions.Last()?.Id == CurrentQuestion.Id)
