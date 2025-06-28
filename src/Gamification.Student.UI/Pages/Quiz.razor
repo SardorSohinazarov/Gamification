@@ -27,7 +27,9 @@
 
             if (Questions.Last()?.Id == CurrentQuestion.Id)
             {
-                <button class="finish-btn" @onclick="FinishQuiz">Finish</button>
+                <div class="nav-arrows">
+                    <button class="finish-btn" @onclick="FinishQuiz">Finish</button>
+                </div>
             }
         }
         else
