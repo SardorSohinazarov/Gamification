@@ -3,38 +3,48 @@
 @using DataTransferObjects.Questions
 @using Gamification.Student.UI.Services.Quiz
 @inject IQuizService QuizService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Quiz</PageTitle>
 
-<h3>Testni Yeching</h3>
-
-@if (Questions == null)
-{
-    <p>Yuklanmoqda...</p>
-}
-else if (!isFinished)
-{
-    if (CurrentQuestion is not null)
+<div class="page">
+    @if (Questions == null)
     {
-        <Question question="@CurrentQuestion"
-                  OnOptionsSelected="OnOptionsSelected"
-                  selectedAnswerIds="@GetSelectedAnswerIds(CurrentQuestion.Id)" />
+        <p>Yuklanmoqda...</p>
+    }
+    else if (!isFinished)
+    {
+        if (CurrentQuestion is not null)
+        {
+            <Question question="@CurrentQuestion"
+                      OnOptionsSelected="OnOptionsSelected"
+                      selectedAnswerIds="@GetSelectedAnswerIds(CurrentQuestion.Id)" />
+
+            <div class="nav-arrows">
+                <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
+                <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
+            </div>
+
+            if (Questions.Last()?.Id == CurrentQuestion.Id)
+            {
+                <button class="finish-btn" @onclick="FinishQuiz">Finish</button>
+            }
+        }
+        else
+        {
+            <p>Hozircha test mavjud emas.</p>
+        }
     }
     else
     {
-        <p>Hozircha test mavjud emas.</p>
-    }
-}
-else
-{
-    <h4>Natija:</h4>
-    <pre>@ShowResult()</pre>
-    <button class="start-btn" @onclick="RestartQuiz">Testni Qayta Boshlash</button>
-}
+        <h4>Natija:</h4>
+        <pre>@ShowResult()</pre>
 
-<div class="nav-arrows">
-    <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
-    <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
+        <div class="quiz-actions">
+            <button class="restart-btn" @onclick="RestartQuiz">Testni Qayta Boshlash</button>
+            <button class="exit-btn" @onclick="ExitQuiz">Chiqish</button>
+        </div>
+    }
 </div>
 
 @code {
@@ -100,5 +110,16 @@ else
     private string ShowResult()
     {
         return JsonSerializer.Serialize(SelectedAnswers, new JsonSerializerOptions { WriteIndented = true });
+    }
+
+    private void ExitQuiz()
+    {
+        NavigationManager.NavigateTo("/exams");
+    }
+
+    private void FinishQuiz()
+    {
+        isFinished = true;
+        CurrentQuestion = null;
     }
 }

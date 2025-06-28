@@ -8,7 +8,7 @@
 }
 
 .page {
-    padding: 20px;
+    padding-top: 40px !important;
 }
 
 h2 {
@@ -16,62 +16,66 @@ h2 {
     margin-bottom: 20px;
 }
 
-.card {
-    background: linear-gradient(to right, #4760FF, #0DCCFF);
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 15px;
+.quiz-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
 }
 
-    .card p {
-        font-size: 12px;
-        margin: 5px 0 0 0;
-        opacity: 0.9;
-    }
-
-    .card span {
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-.option {
-    background-color: #a5ddff;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-#ready p {
-    text-align: center;
-    font-size: 16px;
-    margin-top: 50px;
-    margin-bottom: 10px;
-}
-
-#ready h3 {
-    text-align: center;
-    font-size: 18px;
-}
-
-.start-btn {
-    display: block;
-    margin: 30px auto;
+.restart-btn {
+    flex: 1 1 200px;
+    max-width: 300px;
     padding: 15px 40px;
-    background: linear-gradient(to right, #4b6cb7, #182848);
+    background: linear-gradient(to right, #00c6ff, #0072ff); /* Moviy gradient */
     color: white;
     border: none;
     border-radius: 12px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
+
+.exit-btn {
+    flex: 1 1 200px;
+    max-width: 300px;
+    padding: 15px 40px;
+    background: linear-gradient(to right, #ff4e50, #f9d423); /* Qizil-sariq gradient */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.finish-btn {
+    flex: 1 1 200px;
+    max-width: 300px;
+    padding: 15px 40px;
+    background: linear-gradient(to right, #ff4e50, #f9d423); /* Qizil-sariq gradient */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+@media (max-width: 600px) {
+    .restart-btn,
+    .exit-btn {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+}
+
 
 .nav-arrows {
     display: flex;
