@@ -1,6 +1,7 @@
 ﻿@page "/quiz/{id:int}"
 @using System.Text.Json
 @using DataTransferObjects.Questions
+@using Gamification.Application.DataTransferObjects.Quiz
 @using Gamification.Student.UI.Services.Quiz
 @inject IQuizService QuizService
 @inject NavigationManager NavigationManager
@@ -17,8 +18,8 @@
         if (CurrentQuestion is not null)
         {
             <Question question="@CurrentQuestion"
-                      OnOptionsSelected="OnOptionsSelected"
-                      selectedAnswerIds="@GetSelectedAnswerIds(CurrentQuestion.Id)" />
+            OnOptionsSelected="OnOptionsSelected"
+            selectedAnswerIds="@GetSelectedAnswerIds(CurrentQuestion.Id)" />
 
             <div class="nav-arrows">
                 @if (Questions.First()?.Id != CurrentQuestion.Id){
@@ -43,8 +44,24 @@
     }
     else
     {
-        <h4>Natija:</h4>
-        <pre>@ShowResult()</pre>
+        @if (quizResult is not null)
+        {
+            <div class="result-container">
+                <img src="/images/boy.svg" class="result-avatar" alt="Profile" />
+
+                <p class="result-title">Sizning natijangiz:</p>
+
+                <p class="result-percent">@((int)((double)quizResult.CorrectAnswersCount / quizResult.QuestionsCount * 100))%</p>
+
+                <p class="result-subtitle">
+                    Siz berilgan testdan <strong>@quizResult.CorrectAnswersCount</strong> ta to‘g‘ri topdingiz!
+                </p>
+            </div>
+        }
+        else
+        {
+            <p>Natija aniqlanmoqda.</p>
+        }
 
         <div class="quiz-actions">
             <button class="restart-btn" @onclick="RestartQuiz">Testni Qayta Boshlash</button>
@@ -61,6 +78,7 @@
     private QuestionViewModel? CurrentQuestion;
     private int currentIndex = 0;
     private bool isFinished = false;
+    private CheckedQuizResultDto? quizResult;
 
     private Dictionary<int, List<int>> SelectedAnswers = new();
 
@@ -113,9 +131,12 @@
         CurrentQuestion = Questions[currentIndex];
     }
 
-    private string ShowResult()
+    private async Task CheckResult()
     {
-        return JsonSerializer.Serialize(SelectedAnswers, new JsonSerializerOptions { WriteIndented = true });
+        quizResult = await QuizService.CheckTestAsync(new QuizResultDto(){
+                QuizId = id,
+                Answers = SelectedAnswers
+        });
     }
 
     private void ExitQuiz()
@@ -123,9 +144,11 @@
         NavigationManager.NavigateTo("/exams");
     }
 
-    private void FinishQuiz()
+    private async Task FinishQuiz()
     {
         isFinished = true;
         CurrentQuestion = null;
+
+        await CheckResult();
     }
 }

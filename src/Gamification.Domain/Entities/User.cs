@@ -71,6 +71,8 @@ namespace Gamification.Domain.Entities
         public float Duration { get; set; }
 
         public TestStatus Status { get; set; }
+
+        public List<Question> Questions { get; set; }
     }
 
     public class Question : Auditable<int>

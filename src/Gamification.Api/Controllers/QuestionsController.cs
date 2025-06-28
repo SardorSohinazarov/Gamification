@@ -34,12 +34,6 @@ namespace Controllers
             return Result<List<QuestionViewModel>>.Success(await _questionsService.GetAllAsync());
         }
 
-        [HttpGet("test/{testId}")]
-        public async Task<Result<List<QuestionViewModel>>> GetAllByTestAsync(int testId)
-        {
-            return Result<List<QuestionViewModel>>.Success(await _questionsService.GetAllAsync());
-        }
-
         [HttpPost("filter")]
         public async Task<Result<ListResult<QuestionViewModel>>> FilterAsync(PaginationOptions filter)
         {
