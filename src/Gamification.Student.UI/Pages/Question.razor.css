@@ -1,43 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: #e0f7ff;
-    color: #333;
-    padding-bottom: 80px;
-}
-
-.page {
-    padding: 20px;
-}
-
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.card {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-    .card p {
-        font-size: 12px;
-        margin: 5px 0 0 0;
-        opacity: 0.9;
-    }
-
-    .card span {
-        font-weight: bold;
-        font-size: 14px;
-    }
-
 .option {
     background-color: #a5ddff;
     border-radius: 10px;
@@ -46,35 +6,12 @@ h2 {
     text-align: center;
     font-weight: bold;
     cursor: pointer;
-}
-
-#ready p {
-    text-align: center;
-    font-size: 16px;
-    margin-top: 50px;
-    margin-bottom: 10px;
-}
-
-#ready h3 {
-    text-align: center;
-    font-size: 18px;
-}
-
-.start-btn {
-    display: block;
-    margin: 30px auto;
-    padding: 15px 40px;
-    background: linear-gradient(to right, #4760FF, #0DCCFF);
-    color: white;
+    transition: 0.3s;
+    color: #000;
     border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
-.variants {
-    display: flex;
-    gap: 10px;
-    flex-direction:  column;
-}
+    .option.selected {
+        background-color: green !important;
+        color: white;
+    }

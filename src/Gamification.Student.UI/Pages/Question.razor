@@ -1,14 +1,15 @@
 ﻿@using DataTransferObjects.Questions
+
 <div class="page" id="question">
     <h2>@question.Text</h2>
 
     <div class="variants">
         @foreach (var answer in question.Answers)
         {
-            <button
-                style="background-color:@(selectedAnswerId == answer.Id ? "green":"blue")"
-                class="option @(selectedAnswerId == answer.Id ? "selected" : "")"
-                @onclick="() => Select(answer.Id)">
+            var isSelected = selectedAnswerIds.Contains(answer.Id);
+            <button style="background-color:@(isSelected ? "green":"#a5ddff")"
+                    class="option @(isSelected ? "selected" : "")"
+                    @onclick="() => ToggleSelect(answer.Id)">
                 @answer.Text
             </button>
         }
@@ -17,11 +18,16 @@
 
 @code {
     [Parameter] public QuestionViewModel question { get; set; }
-    [Parameter] public EventCallback<int> OnOptionSelected { get; set; }
-    [Parameter] public int selectedAnswerId { get; set; }
+    [Parameter] public EventCallback<List<int>> OnOptionsSelected { get; set; }
+    [Parameter] public List<int> selectedAnswerIds { get; set; } = new();
 
-    private void Select(int id)
+    private void ToggleSelect(int id)
     {
-        OnOptionSelected.InvokeAsync(id);
+        if (selectedAnswerIds.Contains(id))
+            selectedAnswerIds.Remove(id);
+        else
+            selectedAnswerIds.Add(id);
+
+        OnOptionsSelected.InvokeAsync(selectedAnswerIds);
     }
 }

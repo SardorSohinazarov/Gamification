@@ -3,6 +3,7 @@
 @using DataTransferObjects.Questions
 @using Gamification.Student.UI.Services.Quiz
 @inject IQuizService QuizService
+
 <PageTitle>Quiz</PageTitle>
 
 <h3>Testni Yeching</h3>
@@ -13,16 +14,21 @@
 }
 else if (!isFinished)
 {
-    if(CurrentQuestion is not null){
-        <Question question="@CurrentQuestion" OnOptionSelected="OnOptionSelected" selectedAnswerId="@GetSelectedAnswerId(CurrentQuestion.Id)" />
+    if (CurrentQuestion is not null)
+    {
+        <Question question="@CurrentQuestion"
+                  OnOptionsSelected="OnOptionsSelected"
+                  selectedAnswerIds="@GetSelectedAnswerIds(CurrentQuestion.Id)" />
     }
-    else{
+    else
+    {
         <p>Hozircha test mavjud emas.</p>
     }
 }
 else
 {
-    <h4>Natija: @ShowResult()</h4>
+    <h4>Natija:</h4>
+    <pre>@ShowResult()</pre>
     <button class="start-btn" @onclick="RestartQuiz">Testni Qayta Boshlash</button>
 }
 
@@ -31,33 +37,34 @@ else
     <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
 </div>
 
-
 @code {
     [Parameter]
     public int id { get; set; }
+
     private List<QuestionViewModel> Questions;
     private QuestionViewModel? CurrentQuestion;
     private int currentIndex = 0;
     private bool isFinished = false;
 
-    private Dictionary<int, int> SelectedAnswers = new(); // questionId -> answerId
+    private Dictionary<int, List<int>> SelectedAnswers = new();
 
     protected override async Task OnInitializedAsync()
     {
         Questions = await QuizService.GetQuestionsAsync(id);
-        
+
         if (Questions is { Count: > 0 })
             CurrentQuestion = Questions[currentIndex];
     }
 
-    private int GetSelectedAnswerId(int questionId)
+    private List<int> GetSelectedAnswerIds(int questionId)
     {
-        return SelectedAnswers.ContainsKey(questionId) ? SelectedAnswers[questionId] : 0;
+        return SelectedAnswers.TryGetValue(questionId, out var list) ? list : new List<int>();
     }
 
-    private void OnOptionSelected(int answerId)
+    private void OnOptionsSelected(List<int> selectedIds)
     {
-        SelectedAnswers[CurrentQuestion.Id] = answerId;
+        if (CurrentQuestion != null)
+            SelectedAnswers[CurrentQuestion.Id] = selectedIds;
     }
 
     private void NextQuestion()
@@ -92,10 +99,6 @@ else
 
     private string ShowResult()
     {
-        string result = string.Empty;
-
-        result = JsonSerializer.Serialize(SelectedAnswers, new JsonSerializerOptions { WriteIndented = true });
-        
-        return result;
+        return JsonSerializer.Serialize(SelectedAnswers, new JsonSerializerOptions { WriteIndented = true });
     }
 }
