@@ -1,0 +1,29 @@
+name: Deploy Blazor WebAssembly to GitHub Pages
+
+on:
+  push:
+    branches: [ prod ]  # main branchga push bo‘lganda ishga tushadi
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore & Publish Blazor app
+        run: |
+          dotnet publish src/Gamification.Student.UI/Gamification.Student.UI.csproj -c Release -o dist
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/wwwroot
+          cname: ""  # custom domain bo'lmasa bo'sh qoldiriladi
