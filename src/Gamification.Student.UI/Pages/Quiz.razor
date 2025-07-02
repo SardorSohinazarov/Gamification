@@ -23,10 +23,10 @@
 
             <div class="nav-arrows">
                 @if (Questions.First()?.Id != CurrentQuestion.Id){
-                    <span @onclick="PreviousQuestion"> <img src="./images/left-arrow.svg" /> </span>
+                    <span @onclick="PreviousQuestion"> <img src="images/left-arrow.svg" /> </span>
                 }
                 @if (Questions.Last()?.Id != CurrentQuestion.Id){
-                    <span @onclick="NextQuestion"> <img src="./images/right-arrow.svg" /> </span>
+                    <span @onclick="NextQuestion"> <img src="images/right-arrow.svg" /> </span>
                 }
             </div>
 
@@ -51,7 +51,7 @@
         @if (quizResult is not null)
         {
             <div class="result-container">
-                <img src="/images/boy.svg" class="result-avatar" alt="Profile" />
+                <img src="images/boy.svg" class="result-avatar" alt="Profile" />
 
                 <p class="result-title">Sizning natijangiz:</p>
 
@@ -145,7 +145,7 @@
 
     private void ExitQuiz()
     {
-        NavigationManager.NavigateTo("/exams");
+        NavigationManager.NavigateTo("exams");
     }
 
     private async Task FinishQuiz()
