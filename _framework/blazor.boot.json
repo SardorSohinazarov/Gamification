@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Gamification.Student.UI",
   "resources": {
-    "hash": "sha256-/K02iJkZ+aB5EYNgp2lhOWD0Vw0bf5mwrzBhIRcfbTw=",
+    "hash": "sha256-8/26YlrGkzFEg9UOJ/3S3+H1+oJX6m/5B8oAEloK3qc=",
     "jsModuleNative": {
       "dotnet.native.8.0.17.qnqnu9is6n.js": "sha256-YyxJV6dv935qHoQAmjB+2qRjHeGpm4SyWxE0T/KvsIE="
     },
@@ -20,10 +20,10 @@
       "AutoMapper.wasm": "sha256-pQ4Xf706xSWYtP4HFejje/2xeMx82yLD1hKlKL3JR1I=",
       "Azure.Core.wasm": "sha256-yzqXdo+rUBv6UvcGxf3I8Tack+ke2vAsrKZBnwWEnYQ=",
       "Azure.Identity.wasm": "sha256-bANbVFz/r+yoib6P6Tx+2upxbZY6SRCgZFd1WQtCayM=",
-      "Gamification.Application.wasm": "sha256-3Oj9A27IMmsYEec7UngC7evmSshM92Jg/luVrUYCFfo=",
-      "Gamification.Domain.wasm": "sha256-wadfoLFy/xaIHZjkz02m83q/F8BessvtqHBD3dGDB7U=",
-      "Gamification.Infrastructure.wasm": "sha256-g2oSgo+R5J6tdi6yiCmlPJBhW86dGYdM43jdh+p9oNE=",
-      "Gamification.Student.UI.wasm": "sha256-nOjajNYRn8CG6btIaRGu896kZW3bq7wgWhbaK1c7Pbk=",
+      "Gamification.Application.wasm": "sha256-yw6m6uVHl2DEw4mInj7LwgEMT/UWJr+kEqhMtnitPaQ=",
+      "Gamification.Domain.wasm": "sha256-g50r1yajDhr+RgSqkg4auNKncxp/IImq4UXteZK5dsU=",
+      "Gamification.Infrastructure.wasm": "sha256-wJ9uMnzUSxj5lcgeBNZ6T6JH64jbdD1pCbzfrTGQLsU=",
+      "Gamification.Student.UI.wasm": "sha256-bZXas2Ulpgx9JtNLQtYxHbVMZd2te2rRziRuVBCmVYU=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-OV6BShrtPl3JgxT48CEkKzAWpMxtjOt1mclfsQKMAAE=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-8KlTKN6+YnMu5/3T0HdLEh1KpEG5udY/KJQE3FCcmLk=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-MzGbMsJeAB95G6droRykG4u4+VBtlrXtqW9Q31oHMow=",
