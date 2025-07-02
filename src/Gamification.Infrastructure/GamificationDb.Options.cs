@@ -8,7 +8,8 @@ namespace Gamification.Infrastructure
     public partial class GamificationDb
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public GamificationDb(IHttpContextAccessor httpContextAccessor) 
+        public GamificationDb(IHttpContextAccessor httpContextAccessor, DbContextOptions<GamificationDb> options)
+            : base(options)
             => _httpContextAccessor = httpContextAccessor;
 
         /// <summary>
@@ -67,13 +68,6 @@ namespace Gamification.Infrastructure
 
             return userId ?? "System";
 
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // Default database Sql Server, you can change it to your preferred database provider.
-            //optionsBuilder.UseSqlServer(connectionString: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GamificationDb;");
-            optionsBuilder.UseNpgsql(connectionString: "Host=localhost;Port=5432;Database=GamificationDb;Username=postgres;Password=Sardor0618!;");
         }
     }
 }
