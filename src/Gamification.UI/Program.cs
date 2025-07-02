@@ -12,7 +12,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddDinamicMenu();
 
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
