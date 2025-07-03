@@ -9,7 +9,11 @@
         public string Photo {
             get
             {
-                return $"https://t.me/i/userpic/320/{Username}.jpg";
+                if (Username is not null)
+                {
+                    return $"https://t.me/i/userpic/320/{Username}.jpg";
+                }
+                return null;
             } }
         public string Language_code { get; set; }
     }

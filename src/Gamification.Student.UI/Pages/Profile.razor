@@ -8,10 +8,20 @@
 <!-- Gift Section (Coming Soon) -->
 <div class="gift-section">
     <div class="gift-content">
-        <img src="@user.Photo" alt="Profile Picture" class="profile-pic" />
-        <img src="@user.Photo" alt="Profile Picture" class="profile-pic"
-             onerror="this.onerror=null; this.src='./images/boy.svg';" />
-        <h2>@user.First_name</h2>
+        @if(string.IsNullOrWhiteSpace(user?.Photo)){
+            <img src="./images/boy.svg" alt="Profile Picture" class="profile-pic" />
+        }
+        else{
+            <img src="@user.Photo" alt="Profile Picture" class="profile-pic"
+                 onerror="this.onerror=null; this.src='./images/boy.svg';" />
+        }
+        
+        @if(user is null){
+            <h2>Foydalanuvchi</h2>
+        }
+        else{
+            <h2>@user.First_name</h2>
+        }
     </div>
 </div>
 
