@@ -1,12 +1,21 @@
 ﻿@page "/"
 
+@inject IJSRuntime JSRuntime
+
 <PageTitle>Home</PageTitle>
 
   <div>
     <!-- Welcome -->
     <div class="welcome-section">
         <div class="welcome-text">
-            Xush kelibsiz, <strong>Abdujalil</strong>
+            Xush kelibsiz, 
+            @if(user is not null)
+            {
+                <strong>@user.First_name</strong>
+            }
+            else{
+                <strong>Foydalanuvchi</strong>
+            }
         </div>
         <div class="welcome-avatar">
             <img src="./images/boy.svg" alt="Avatar" />
@@ -86,3 +95,27 @@
   </div>
 
 <NavMenu />
+
+@code{
+    private TelegramUser? user;
+    private bool isInitialized = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            user = await JSRuntime.InvokeAsync<TelegramUser>("getTelegramUser");
+            isInitialized = true;
+            StateHasChanged();
+        }
+    }
+
+    public class TelegramUser
+    {
+        public long Id { get; set; }
+        public string? First_name { get; set; }
+        public string? Last_name { get; set; }
+        public string? Username { get; set; }
+        public string? Language_code { get; set; }
+    }
+}
