@@ -1,6 +1,8 @@
 ﻿@page "/"
+@using Gamification.Student.UI.Models
+@using Gamification.Student.UI.Services.Telegram
 
-@inject IJSRuntime JSRuntime
+@inject IUserService UserService
 
 <PageTitle>Home</PageTitle>
 
@@ -104,18 +106,9 @@
     {
         if (firstRender)
         {
-            user = await JSRuntime.InvokeAsync<TelegramUser>("getTelegramUser");
+            user = await UserService.GetUserAsync();
             isInitialized = true;
             StateHasChanged();
         }
-    }
-
-    public class TelegramUser
-    {
-        public long Id { get; set; }
-        public string? First_name { get; set; }
-        public string? Last_name { get; set; }
-        public string? Username { get; set; }
-        public string? Language_code { get; set; }
     }
 }
