@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Gamification.Student.UI",
   "resources": {
-    "hash": "sha256-jbCiZu4uj0sTTrKMxnXKH7fcpfAUuwETeRMUjmdFqBA=",
+    "hash": "sha256-v0LOJlwO7Msb3+mfAS6GN1E3WfXNKhCabsJhW+0Pad0=",
     "jsModuleNative": {
       "dotnet.native.8.0.17.qnqnu9is6n.js": "sha256-YyxJV6dv935qHoQAmjB+2qRjHeGpm4SyWxE0T/KvsIE="
     },
@@ -25,10 +25,10 @@
       "DocumentFormat.OpenXml.Framework.wasm": "sha256-d3D3sj80AdN4f/GUO73zIgtQSeuYvrJ5LoZkzvCjkTs=",
       "DocumentFormat.OpenXml.wasm": "sha256-loCs+K2cK1XiWQpgI3TgEq8EytbdX+Hlyh4nufCJ0ho=",
       "ExcelNumberFormat.wasm": "sha256-DWrWJf+NGbjj12iqpO+Ufl4YS0bkW1yz6JwjocU15wY=",
-      "Gamification.Application.wasm": "sha256-ViKMgt0dimdmlXlKwIg9gOCAfiAxgCPMKr7/0ayeoto=",
-      "Gamification.Domain.wasm": "sha256-SuOj7UGifak1+pjDhbL17HIzQQKQ5IqXAKdFZr3q01U=",
-      "Gamification.Infrastructure.wasm": "sha256-86vT5x5Sf6Qs25I757QGLxcvwLKui/TY5xa9CmnasP4=",
-      "Gamification.Student.UI.wasm": "sha256-BZt9YrqdsTjVM5Hk0tfV1IKMdDAAhrDryb+UvJCaO/k=",
+      "Gamification.Application.wasm": "sha256-nysHq+W41CzJ42Lo88y1QRJUymBotVQIsgrSRyP4Q5w=",
+      "Gamification.Domain.wasm": "sha256-Is7xIRS3CoR2sjg839vNttQCo+pP9IXVPQDXvqyOqJs=",
+      "Gamification.Infrastructure.wasm": "sha256-63yNelMnPveH6tD7WNtKiPI0k5Ovhv5EF2BBDv3dyc8=",
+      "Gamification.Student.UI.wasm": "sha256-fB/VUlL0lpq7i7fzYZS+iIkkuiA3fq3lROx4sNqG3uw=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-OV6BShrtPl3JgxT48CEkKzAWpMxtjOt1mclfsQKMAAE=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-8KlTKN6+YnMu5/3T0HdLEh1KpEG5udY/KJQE3FCcmLk=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-MzGbMsJeAB95G6droRykG4u4+VBtlrXtqW9Q31oHMow=",
