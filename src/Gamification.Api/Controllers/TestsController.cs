@@ -8,7 +8,7 @@ using Services.Tests;
 using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Tests;
-using Gamification.Domain.Entities;
+using Gamification.Application.DataTransferObjects.Tests;
 
 namespace Controllers
 {
@@ -26,6 +26,12 @@ namespace Controllers
         public async Task<Result<TestViewModel>> AddAsync(TestCreationDto testCreationDto)
         {
             return Result<TestViewModel>.Success(await _testsService.AddAsync(testCreationDto));
+        }
+
+        [HttpPost("file")]
+        public async Task<Result<TestViewModel>> AddAsync([FromForm] TestFileCreationDto file, CancellationToken cancellationToken)
+        {
+            return Result<TestViewModel>.Success(await _testsService.AddAsync(file, cancellationToken));
         }
 
         [HttpGet]
