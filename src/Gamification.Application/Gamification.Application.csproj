@@ -8,15 +8,12 @@
 
 <ItemGroup>
 	<PackageReference Include="AutoMapper" Version="13.0.1" />
+	<PackageReference Include="ClosedXML" Version="0.105.0" />
 </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Gamification.Domain\Gamification.Domain.csproj" />
     <ProjectReference Include="..\Gamification.Infrastructure\Gamification.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
