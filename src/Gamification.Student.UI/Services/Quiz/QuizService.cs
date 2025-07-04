@@ -1,5 +1,6 @@
 ﻿using Common;
 using DataTransferObjects.Questions;
+using DataTransferObjects.Tests;
 using Gamification.Application.DataTransferObjects.Quiz;
 using System.Net.Http.Json;
 
@@ -63,6 +64,37 @@ namespace Gamification.Student.UI.Services.Quiz
                 else
                 {
                     throw new Exception("Failed to check test");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<TestViewModel>> GetTestsAsync()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("api/quiz/tests");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    response.EnsureSuccessStatusCode();
+                    var result = await response.Content.ReadFromJsonAsync<Result<List<TestViewModel>>>();
+
+                    if (result != null && result.Succeeded && result.Data != null)
+                    {
+                        return result.Data;
+                    }
+                    else
+                    {
+                        throw new Exception($"Failed to retrieve tests, message:{result.Message}");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Failed to load tests");
                 }
             }
             catch (Exception ex)

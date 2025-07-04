@@ -51,7 +51,10 @@ namespace Services.Tests
 
         public async Task<List<TestViewModel>> GetAllAsync()
         {
-            var entities = await _gamificationDb.Set<Test>().ToListAsync();
+            var entities = await _gamificationDb.Set<Test>()
+                .Where(x => x.Status == TestStatus.Public)
+                .ToListAsync();
+
             return _mapper.Map<List<TestViewModel>>(entities);
         }
 

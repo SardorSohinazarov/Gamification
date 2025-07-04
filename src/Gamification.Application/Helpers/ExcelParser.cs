@@ -32,7 +32,7 @@ namespace Gamification.Application.Helpers
                 Title = testTitle,
                 Description = string.Empty,
                 Duration = 1f,
-                Status = TestStatus.Public,
+                Status = TestStatus.Private,
                 Questions = new List<Question>()
             };
 
