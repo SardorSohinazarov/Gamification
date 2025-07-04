@@ -2,8 +2,8 @@
 @using DataTransferObjects.Tests
 @using DataTransferObjects.Tests
 @using Gamification.Student.UI.Services
-@using Gamification.Student.UI.Services.Tests
-@inject ITestService TestService
+@using Gamification.Student.UI.Services.Quiz
+@inject IQuizService QuizService
 
 <PageTitle>Exams</PageTitle>
 
@@ -40,7 +40,7 @@
     {
         try
         {
-            tests = await TestService.GetTestsAsync();
+            tests = await QuizService.GetTestsAsync();
         }
         catch (Exception ex)
         {

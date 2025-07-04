@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Gamification.Application\Gamification.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Telegram\" />
+  </ItemGroup>
+
 </Project>
