@@ -8,12 +8,13 @@ using Services.Lessons;
 using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Lessons;
-using Gamification.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class LessonsController : ControllerBase
     {
         private readonly ILessonsService _lessonsService;
