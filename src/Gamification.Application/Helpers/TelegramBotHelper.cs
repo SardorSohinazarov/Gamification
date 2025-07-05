@@ -43,8 +43,8 @@ namespace Gamification.Application.Helpers
                           $"\n🧵 StackTrace: {exMessage.StackTrace}\n" +
                           $"\n🕒 Moment: {DateTime.UtcNow}";
 
-            var _errorBotToken = _configuration["Telegram:ErrorBotToken"];
-            var _errorChatId = _configuration["Telegram:ErrorChatId"];
+            var _errorBotToken = _configuration["TelegramBot:Token"];
+            var _errorChatId = _configuration["TelegramBot:ChatId"];
 
             await SendTextAsync(_errorBotToken, _errorChatId, message);
         }
