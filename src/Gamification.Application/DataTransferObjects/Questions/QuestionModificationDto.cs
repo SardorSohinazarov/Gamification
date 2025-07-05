@@ -14,8 +14,4 @@ public class QuestionModificationDto
 	public string Text { get; set; }
 	public int TestId { get; set; }
 	public List<int> AnswersIds { get; set; }
-	public string CreatedBy { get; set; }
-	public DateTime? Created { get; set; }
-	public string LastModifiedBy { get; set; }
-	public DateTime? LastModified { get; set; }
 }
