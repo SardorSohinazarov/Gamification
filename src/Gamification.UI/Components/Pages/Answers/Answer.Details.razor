@@ -31,16 +31,6 @@ else
             <dd class="col-sm-9">None</dd>
         }
 
-        <dt class="col-sm-3">Question</dt>
-        @if(@answer.Question != default)
-        {
-            <dd class="col-sm-9"><a href="/Questions/@answer.QuestionId">link</a></dd>
-        }
-        else
-        {
-            <dd class="col-sm-9">None</dd>
-        }
-
         <dt class="col-sm-3">CreatedBy</dt>
         @if(@answer.CreatedBy != default)
         {
