@@ -1,6 +1,6 @@
-﻿window.getTelegramUser = function () {
+﻿window.getTelegramData = function () {
     if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe) {
-        return Telegram.WebApp.initDataUnsafe.user;
+        return Telegram.WebApp.initDataUnsafe;
     }
     return null;
 };
