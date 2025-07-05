@@ -1,7 +1,6 @@
 ﻿using Common;
-using DataTransferObjects.Questions;
-using DataTransferObjects.Tests;
-using Gamification.Application.DataTransferObjects.Quiz;
+using Gamification.Student.UI.Models.Quiz;
+using Gamification.Student.UI.Models.Tests;
 using System.Net.Http.Json;
 
 namespace Gamification.Student.UI.Services.Quiz
