@@ -4,6 +4,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using DataTransferObjects.Questions;
 using Gamification.Domain.Entities;
 
 namespace DataTransferObjects.Answers;
@@ -12,8 +13,6 @@ public class AnswerViewModel
 {
     public int Id { get; set; }
     public string Text { get; set; }
-    public int QuestionId { get; set; }
-    public Question Question { get; set; }
     public string CreatedBy { get; set; }
     public DateTime? Created { get; set; }
 }
