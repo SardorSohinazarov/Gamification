@@ -38,22 +38,6 @@ namespace Gamification.Infrastructure.Migrations
                 type: "timestamp with time zone",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "StartTime",
-                table: "Courses",
-                type: "timestamp with time zone",
-                nullable: false,
-                oldClrType: typeof(TimeOnly),
-                oldType: "time without time zone");
-
-            migrationBuilder.AlterColumn<DateTime>(
-                name: "StartDate",
-                table: "Courses",
-                type: "timestamp with time zone",
-                nullable: false,
-                oldClrType: typeof(DateOnly),
-                oldType: "date");
         }
 
         /// <inheritdoc />
@@ -80,22 +64,6 @@ namespace Gamification.Infrastructure.Migrations
                 oldClrType: typeof(string),
                 oldType: "text",
                 oldNullable: true);
-
-            migrationBuilder.AlterColumn<TimeOnly>(
-                name: "StartTime",
-                table: "Courses",
-                type: "time without time zone",
-                nullable: false,
-                oldClrType: typeof(DateTime),
-                oldType: "timestamp with time zone");
-
-            migrationBuilder.AlterColumn<DateOnly>(
-                name: "StartDate",
-                table: "Courses",
-                type: "date",
-                nullable: false,
-                oldClrType: typeof(DateTime),
-                oldType: "timestamp with time zone");
         }
     }
 }
