@@ -8,12 +8,13 @@ using Services.Questions;
 using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Questions;
-using Gamification.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class QuestionsController : ControllerBase
     {
         private readonly IQuestionsService _questionsService;

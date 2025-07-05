@@ -5,7 +5,6 @@
 
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
 using Common.Paginations.Models;
 using Common.Paginations.Extensions;
 using Common.ServiceAttribute;
@@ -13,6 +12,8 @@ using Common;
 using DataTransferObjects.Tests;
 using Gamification.Infrastructure;
 using Gamification.Domain.Entities;
+using Gamification.Application.DataTransferObjects.Tests;
+using Gamification.Application.Helpers;
 
 namespace Services.Tests
 {
@@ -20,11 +21,16 @@ namespace Services.Tests
     public class TestsService : ITestsService
     {
         private readonly GamificationDb _gamificationDb;
+        private readonly ExcelParser _excelParser;
         private readonly IMapper _mapper;
-        public TestsService(GamificationDb gamificationDb, IMapper mapper)
+        public TestsService(
+            GamificationDb gamificationDb,
+            IMapper mapper,
+            ExcelParser excelParser)
         {
             _gamificationDb = gamificationDb;
             _mapper = mapper;
+            _excelParser = excelParser;
         }
 
         public async Task<TestViewModel> AddAsync(TestCreationDto testCreationDto)
@@ -35,9 +41,20 @@ namespace Services.Tests
             return _mapper.Map<TestViewModel>(entry.Entity);
         }
 
+        public async Task<TestViewModel> AddAsync(TestFileCreationDto testCreationDto, CancellationToken cancellationToken)
+        {
+            var entity = await _excelParser.ImportAsync(testCreationDto, cancellationToken);
+            var entry = await _gamificationDb.Set<Test>().AddAsync(entity, cancellationToken);
+            await _gamificationDb.SaveChangesAsync(cancellationToken);
+            return _mapper.Map<TestViewModel>(entry.Entity);
+        }
+
         public async Task<List<TestViewModel>> GetAllAsync()
         {
-            var entities = await _gamificationDb.Set<Test>().ToListAsync();
+            var entities = await _gamificationDb.Set<Test>()
+                .Where(x => x.Status == TestStatus.Public)
+                .ToListAsync();
+
             return _mapper.Map<List<TestViewModel>>(entities);
         }
 

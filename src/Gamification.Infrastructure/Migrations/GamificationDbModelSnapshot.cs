@@ -86,11 +86,11 @@ namespace Gamification.Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -301,6 +301,9 @@ namespace Gamification.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("LanguageCode")
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("timestamp with time zone");
 
@@ -312,11 +315,17 @@ namespace Gamification.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RefreshTokenExpireDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Salt")
                         .IsRequired()
@@ -417,7 +426,7 @@ namespace Gamification.Infrastructure.Migrations
             modelBuilder.Entity("Gamification.Domain.Entities.Answer", b =>
                 {
                     b.HasOne("Gamification.Domain.Entities.Question", "Question")
-                        .WithMany()
+                        .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -466,7 +475,7 @@ namespace Gamification.Infrastructure.Migrations
             modelBuilder.Entity("Gamification.Domain.Entities.Question", b =>
                 {
                     b.HasOne("Gamification.Domain.Entities.Test", "Test")
-                        .WithMany()
+                        .WithMany("Questions")
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -518,6 +527,16 @@ namespace Gamification.Infrastructure.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Gamification.Domain.Entities.Question", b =>
+                {
+                    b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("Gamification.Domain.Entities.Test", b =>
+                {
+                    b.Navigation("Questions");
                 });
 #pragma warning restore 612, 618
         }

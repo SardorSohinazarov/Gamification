@@ -10,13 +10,10 @@ namespace DataTransferObjects.Answers;
 
 public class AnswerViewModel
 {
+    public int Id { get; set; }
     public string Text { get; set; }
     public int QuestionId { get; set; }
     public Question Question { get; set; }
-    public bool IsCorrect { get; set; }
     public string CreatedBy { get; set; }
     public DateTime? Created { get; set; }
-    public string LastModifiedBy { get; set; }
-    public DateTime? LastModified { get; set; }
-    public int Id { get; set; }
 }

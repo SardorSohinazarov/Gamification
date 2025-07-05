@@ -64,26 +64,6 @@ else
             <dd class="col-sm-9">None</dd>
         }
 
-        <dt class="col-sm-3">LastModifiedBy</dt>
-        @if(@question.LastModifiedBy != default)
-        {
-            <dd class="col-sm-9">@question.LastModifiedBy</dd>
-        }
-        else
-        {
-            <dd class="col-sm-9">None</dd>
-        }
-
-        <dt class="col-sm-3">LastModified</dt>
-        @if(@question.LastModified != default)
-        {
-            <dd class="col-sm-9">@question.LastModified</dd>
-        }
-        else
-        {
-            <dd class="col-sm-9">None</dd>
-        }
-
     </dl>
     <div>
         <button class="btn btn-primary" @onclick="Save">Save</button>

@@ -1,5 +1,5 @@
-﻿using DataTransferObjects.Questions;
-using Gamification.Application.DataTransferObjects.Quiz;
+﻿using Gamification.Student.UI.Models.Quiz;
+using Gamification.Student.UI.Models.Tests;
 
 namespace Gamification.Student.UI.Services.Quiz
 {
@@ -7,5 +7,6 @@ namespace Gamification.Student.UI.Services.Quiz
     {
         Task<List<QuestionViewModel>> GetQuestionsAsync(int testId);
         Task<CheckedQuizResultDto> CheckTestAsync(QuizResultDto quizResultDto);
+        Task<List<TestViewModel>> GetTestsAsync();
     }
 }

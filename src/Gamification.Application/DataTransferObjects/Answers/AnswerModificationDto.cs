@@ -13,8 +13,4 @@ public class AnswerModificationDto
 	public string Text { get; set; }
 	public int QuestionId { get; set; }
 	public bool IsCorrect { get; set; }
-	public string CreatedBy { get; set; }
-	public DateTime? Created { get; set; }
-	public string LastModifiedBy { get; set; }
-	public DateTime? LastModified { get; set; }
 }

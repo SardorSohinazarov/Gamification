@@ -11,13 +11,15 @@ namespace DataTransferObjects.Tests;
 
 public class TestViewModel
 {
+    [JsonPropertyName("id")]
+    public int Id { get; set; }
     [JsonPropertyName("title")]
     public string Title { get; set; }
     [JsonPropertyName("description")]
     public string Description { get; set; }
-    [JsonPropertyName("startDate")]
+    [JsonPropertyName("duration")]
     public float Duration { get; set; }
-    [JsonPropertyName("endDate")]
+    [JsonPropertyName("status")]
     public TestStatus Status { get; set; }
     [JsonPropertyName("createdBy")]
     public string CreatedBy { get; set; }
@@ -27,6 +29,4 @@ public class TestViewModel
     public string LastModifiedBy { get; set; }
     [JsonPropertyName("lastModified")]
     public DateTime? LastModified { get; set; }
-    [JsonPropertyName("id")]
-    public int Id { get; set; }
 }

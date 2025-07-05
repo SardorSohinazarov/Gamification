@@ -7,12 +7,14 @@ using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Tests;
 using Gamification.Domain.Entities;
+using Gamification.Application.DataTransferObjects.Tests;
 
 namespace Services.Tests
 {
     public interface ITestsService
     {
         Task<TestViewModel> AddAsync(TestCreationDto testCreationDto);
+        Task<TestViewModel> AddAsync(TestFileCreationDto file, CancellationToken cancellationToken);
         Task<List<TestViewModel>> GetAllAsync();
         Task<ListResult<TestViewModel>> FilterAsync(PaginationOptions filter);
         Task<TestViewModel> GetByIdAsync(int id);

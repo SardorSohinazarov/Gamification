@@ -1,10 +1,12 @@
 ﻿using Common;
 using DataTransferObjects.Questions;
+using DataTransferObjects.Tests;
 using Gamification.Application.DataTransferObjects.Quiz;
 using Gamification.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Services.Questions;
+using Services.Tests;
 
 namespace Gamification.Api.Controllers
 {
@@ -14,11 +16,16 @@ namespace Gamification.Api.Controllers
     {
         private readonly GamificationDb _gamificationDb;
         private readonly IQuestionsService _questionsService;
+        private readonly ITestsService _testsService;
 
-        public QuizController(GamificationDb gamificationDb, IQuestionsService questionsService)
+        public QuizController(
+            GamificationDb gamificationDb,
+            IQuestionsService questionsService,
+            ITestsService testsService)
         {
             _gamificationDb = gamificationDb;
             _questionsService = questionsService;
+            _testsService = testsService;
         }
 
         [HttpGet("test/{testId}")]
@@ -63,6 +70,12 @@ namespace Gamification.Api.Controllers
             }
 
             return Result<CheckedQuizResultDto>.Success(checkedQuizResultDto);
+        }
+
+        [HttpGet("tests")]
+        public async Task<Result<List<TestViewModel>>> GetAllAsync()
+        {
+            return Result<List<TestViewModel>>.Success(await _testsService.GetAllAsync());
         }
     }
 }

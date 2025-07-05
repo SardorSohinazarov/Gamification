@@ -14,8 +14,4 @@ public class TestCreationDto
 	public string Description { get; set; }
 	public float Duration { get; set; }
 	public TestStatus Status { get; set; }
-	public string CreatedBy { get; set; }
-	public DateTime? Created { get; set; }
-	public string LastModifiedBy { get; set; }
-	public DateTime? LastModified { get; set; }
 }

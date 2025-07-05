@@ -81,24 +81,6 @@ else
                         <td>None</td>
                     }
 
-                    @if(@item.LastModifiedBy != default)
-                    {
-                        <td>@item.LastModifiedBy</td>
-                    }
-                    else
-                    {
-                        <td>None</td>
-                    }
-
-                    @if(@item.LastModified != default)
-                    {
-                        <td>@item.LastModified</td>
-                    }
-                    else
-                    {
-                        <td>None</td>
-                    }
-
                     <td>
                         <NavLink class="btn btn-sm btn-info" href="@($"/questions/{item.Id}")">Details</NavLink>
                         <button class="btn btn-sm btn-danger" @onclick="() => DeleteQuestion(item.Id)">Delete</button>

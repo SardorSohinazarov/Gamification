@@ -8,12 +8,13 @@ using Services.Users;
 using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Users;
-using Gamification.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class UsersController : ControllerBase
     {
         private readonly IUsersService _usersService;

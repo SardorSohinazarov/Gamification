@@ -8,12 +8,14 @@ using Services.Tests;
 using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Tests;
-using Gamification.Domain.Entities;
+using Gamification.Application.DataTransferObjects.Tests;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class TestsController : ControllerBase
     {
         private readonly ITestsService _testsService;
@@ -26,6 +28,12 @@ namespace Controllers
         public async Task<Result<TestViewModel>> AddAsync(TestCreationDto testCreationDto)
         {
             return Result<TestViewModel>.Success(await _testsService.AddAsync(testCreationDto));
+        }
+
+        [HttpPost("file")]
+        public async Task<Result<TestViewModel>> AddAsync([FromForm] TestFileCreationDto file, CancellationToken cancellationToken)
+        {
+            return Result<TestViewModel>.Success(await _testsService.AddAsync(file, cancellationToken));
         }
 
         [HttpGet]
