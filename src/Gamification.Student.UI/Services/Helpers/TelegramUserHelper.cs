@@ -1,10 +1,8 @@
-﻿using Common.ServiceAttribute;
-using Gamification.Student.UI.Models;
+﻿using Gamification.Student.UI.Models.Telegram;
 using Microsoft.JSInterop;
 
 namespace Gamification.Student.UI.Services.Helpers
 {
-    [SingletonService]
     public class TelegramUserHelper
     {
         private readonly IJSRuntime _jsRuntime;

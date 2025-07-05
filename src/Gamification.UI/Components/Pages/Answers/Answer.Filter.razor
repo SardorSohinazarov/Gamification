@@ -61,15 +61,6 @@ else
                         <td>None</td>
                     }
 
-                    @if(@item.IsCorrect != default)
-                    {
-                        <td>@item.IsCorrect</td>
-                    }
-                    else
-                    {
-                        <td>None</td>
-                    }
-
                     @if(@item.CreatedBy != default)
                     {
                         <td>@item.CreatedBy</td>
@@ -82,24 +73,6 @@ else
                     @if(@item.Created != default)
                     {
                         <td>@item.Created</td>
-                    }
-                    else
-                    {
-                        <td>None</td>
-                    }
-
-                    @if(@item.LastModifiedBy != default)
-                    {
-                        <td>@item.LastModifiedBy</td>
-                    }
-                    else
-                    {
-                        <td>None</td>
-                    }
-
-                    @if(@item.LastModified != default)
-                    {
-                        <td>@item.LastModified</td>
                     }
                     else
                     {

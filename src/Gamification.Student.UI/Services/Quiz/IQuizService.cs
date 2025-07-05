@@ -1,6 +1,5 @@
-﻿using DataTransferObjects.Questions;
-using DataTransferObjects.Tests;
-using Gamification.Application.DataTransferObjects.Quiz;
+﻿using Gamification.Student.UI.Models.Quiz;
+using Gamification.Student.UI.Models.Tests;
 
 namespace Gamification.Student.UI.Services.Quiz
 {

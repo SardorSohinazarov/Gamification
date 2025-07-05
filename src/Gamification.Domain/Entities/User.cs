@@ -4,14 +4,21 @@ namespace Gamification.Domain.Entities
 {
     public class User : Auditable<int>
     {
+        public User()
+        {
+            
+        }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? Username { get; set; }
         public string? PhoneNumber { get; set; }
+        public string? LanguageCode { get; set; }
         public long TelegramId { get; set; }
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
         public string Salt { get; set; }
         public UserType UserType { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpireDate { get; set; }
     }
 
     public class UserCourse : Auditable<int>

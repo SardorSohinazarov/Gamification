@@ -43,26 +43,6 @@
         </InputSelect>
         <ValidationMessage For="@(() => test.Status)" />
     </div>
-    <div class="form-group mb-3">
-        <label for="createdby">CreatedBy:</label>
-        <InputText id="createdby" class="form-control" @bind-Value="test.CreatedBy" />
-        <ValidationMessage For="@(() => test.CreatedBy)" />
-    </div>
-    <div class="form-group mb-3">
-        <label for="created">Created:</label>
-        <InputDate id="created" class="form-control" @bind-Value="test.Created" />
-        <ValidationMessage For="@(() => test.Created)" />
-    </div>
-    <div class="form-group mb-3">
-        <label for="lastmodifiedby">LastModifiedBy:</label>
-        <InputText id="lastmodifiedby" class="form-control" @bind-Value="test.LastModifiedBy" />
-        <ValidationMessage For="@(() => test.LastModifiedBy)" />
-    </div>
-    <div class="form-group mb-3">
-        <label for="lastmodified">LastModified:</label>
-        <InputDate id="lastmodified" class="form-control" @bind-Value="test.LastModified" />
-        <ValidationMessage For="@(() => test.LastModified)" />
-    </div>
 
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" class="btn btn-secondary" @onclick="Cancel">Cancel</button>

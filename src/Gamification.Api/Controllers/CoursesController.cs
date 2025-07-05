@@ -8,12 +8,13 @@ using Services.Courses;
 using Common.Paginations.Models;
 using Common;
 using DataTransferObjects.Courses;
-using Gamification.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class CoursesController : ControllerBase
     {
         private readonly ICoursesService _coursesService;

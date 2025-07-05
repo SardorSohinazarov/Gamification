@@ -41,16 +41,6 @@ else
             <dd class="col-sm-9">None</dd>
         }
 
-        <dt class="col-sm-3">IsCorrect</dt>
-        @if(@answer.IsCorrect != default)
-        {
-            <dd class="col-sm-9">@answer.IsCorrect</dd>
-        }
-        else
-        {
-            <dd class="col-sm-9">None</dd>
-        }
-
         <dt class="col-sm-3">CreatedBy</dt>
         @if(@answer.CreatedBy != default)
         {
@@ -65,26 +55,6 @@ else
         @if(@answer.Created != default)
         {
             <dd class="col-sm-9">@answer.Created</dd>
-        }
-        else
-        {
-            <dd class="col-sm-9">None</dd>
-        }
-
-        <dt class="col-sm-3">LastModifiedBy</dt>
-        @if(@answer.LastModifiedBy != default)
-        {
-            <dd class="col-sm-9">@answer.LastModifiedBy</dd>
-        }
-        else
-        {
-            <dd class="col-sm-9">None</dd>
-        }
-
-        <dt class="col-sm-3">LastModified</dt>
-        @if(@answer.LastModified != default)
-        {
-            <dd class="col-sm-9">@answer.LastModified</dd>
         }
         else
         {
