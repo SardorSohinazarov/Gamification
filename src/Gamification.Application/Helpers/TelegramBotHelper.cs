@@ -1,6 +1,7 @@
 ﻿using Common.ServiceAttribute;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Json;
 
@@ -10,10 +11,12 @@ namespace Gamification.Application.Helpers
     public class TelegramBotHelper
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<TelegramBotHelper> _logger;
 
-        public TelegramBotHelper(IConfiguration configuration)
+        public TelegramBotHelper(IConfiguration configuration, ILogger<TelegramBotHelper> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         /// <summary>
@@ -56,7 +59,7 @@ namespace Gamification.Application.Helpers
         /// <param name="chatId"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static async Task SendTextAsync(string botToken, string chatId, string message)
+        public async Task SendTextAsync(string botToken, string chatId, string message)
         {
             var maxMessageLength = 4096;
             using var httpClient = new HttpClient();
@@ -73,11 +76,16 @@ namespace Gamification.Application.Helpers
                     text = part,
                 }), Encoding.UTF8, "application/json");
 
-                await httpClient.PostAsync(url, content);
+                var response = await httpClient.PostAsync(url, content);
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    _logger.LogInformation($"Failed to send message to Telegram: {errorMessage}");
+                }
             }
         }
 
-        private static async Task<string> ReadRequestBodyIfJsonAsync(HttpContext context)
+        private async Task<string> ReadRequestBodyIfJsonAsync(HttpContext context)
         {
             context.Request.EnableBuffering(); // allows re-reading the body
 
