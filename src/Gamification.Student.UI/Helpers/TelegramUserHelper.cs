@@ -7,7 +7,7 @@ namespace Gamification.Student.UI.Helpers
 {
     public class TelegramUserHelper
     {
-        private TelegramUser _cachedUser;
+        private WebAppUser _cachedUser;
         private readonly IJSRuntime _jsRuntime;
         private readonly IAuthService _authService;
 
@@ -17,7 +17,7 @@ namespace Gamification.Student.UI.Helpers
             _authService = authService;
         }
 
-        public async Task<TelegramUser> GetUserAsync()
+        public async Task<WebAppUser> GetUserAsync()
         {
             if (_cachedUser != null)
             {
@@ -26,9 +26,9 @@ namespace Gamification.Student.UI.Helpers
 
             try
             {
-                var telegramData = await _jsRuntime.InvokeAsync<TelegramAuthData>("getTelegramData");
+                var telegramData = await _jsRuntime.InvokeAsync<WebAppInitData>("getTelegramData");
 
-                await LoginAsync(telegramData);
+                await LoginAsync(telegramData.User);
 
                 return telegramData.User;
             }
@@ -39,7 +39,7 @@ namespace Gamification.Student.UI.Helpers
             }
         }
 
-        private async Task LoginAsync(TelegramAuthData telegramData)
+        private async Task LoginAsync(WebAppUser telegramData)
         {
             try
             {
