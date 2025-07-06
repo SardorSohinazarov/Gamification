@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Gamification.Student.UI",
   "resources": {
-    "hash": "sha256-PtxhsRTCuC7fNO1NEl11uEgMRO0Lj7mZt1+UUlT5oM0=",
+    "hash": "sha256-mn7lT0bV1/0w5hVCVMbhNdhSq7K5dCYVyk02hwDoY78=",
     "jsModuleNative": {
       "dotnet.native.8.0.17.qnqnu9is6n.js": "sha256-YyxJV6dv935qHoQAmjB+2qRjHeGpm4SyWxE0T/KvsIE="
     },
@@ -17,7 +17,7 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "Gamification.Student.UI.wasm": "sha256-qxjrbkmuuoylGP1g1OI4ONi4uMonGXAaMjaY5KhtNAA=",
+      "Gamification.Student.UI.wasm": "sha256-EeBdNdgKbw/Em1iYk6Z8FTOgTHutNYeYgSI9ceZMF6w=",
       "Microsoft.AspNetCore.Components.wasm": "sha256-LUZAeaTiGAfl/0UCOpyuFz9LaXRn7QoBFVKpdLO1414=",
       "Microsoft.AspNetCore.Components.Web.wasm": "sha256-NlVRuY+nqd87LUoFC1H8+L/ogpOqJ4z9W2tPGiysUfM=",
       "Microsoft.AspNetCore.Components.WebAssembly.wasm": "sha256-YjxqRJV+potoZE5+jVWeXASumdqmg04xP5RNhDzg0ns=",
