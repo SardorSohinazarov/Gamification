@@ -10,7 +10,7 @@
         public string? chat_instance { get; set; }
         public string? start_param { get; set; }
         public int? can_send_after { get; set; }
-        public long auth_date { get; set; }
+        public string? auth_date { get; set; }
         public string hash { get; set; } = default!;
         public string? signature { get; set; }
     }
