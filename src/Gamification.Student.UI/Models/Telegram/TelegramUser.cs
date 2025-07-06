@@ -27,8 +27,6 @@
         public bool? added_to_attachment_menu { get; set; }
         public bool? allows_write_to_pm { get; set; }
         public string? photo_url { get; set; }
-
-        public string? initData { get; set; }
     }
 
     public class WebAppChat
