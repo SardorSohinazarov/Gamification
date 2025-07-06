@@ -8,11 +8,11 @@
 <!-- Gift Section (Coming Soon) -->
 <div class="gift-section">
     <div class="gift-content">
-        @if(string.IsNullOrWhiteSpace(user?.Photo)){
+        @if(string.IsNullOrWhiteSpace(user?.PhotoUrl)){
             <img src="./images/boy.svg" alt="Profile Picture" class="profile-pic" />
         }
         else{
-            <img src="@user.Photo" alt="Profile Picture" class="profile-pic"
+            <img src="@user.PhotoUrl" alt="Profile Picture" class="profile-pic"
                  onerror="this.onerror=null; this.src='./images/boy.svg';" />
         }
         
@@ -20,7 +20,7 @@
             <h2>Foydalanuvchi</h2>
         }
         else{
-            <h2>@user.First_name</h2>
+            <h2>@user.FirstName</h2>
         }
     </div>
 </div>
@@ -61,7 +61,7 @@
 <NavMenu />
 
 @code{
-    private TelegramUser? user;
+    private WebAppUser? user;
     private bool isInitialized = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

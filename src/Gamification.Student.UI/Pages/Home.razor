@@ -12,7 +12,7 @@
             Xush kelibsiz, 
             @if(user is not null)
             {
-                <strong>@user.First_name</strong>
+                <strong>@user.FirstName</strong>
             }
             else{
                 <strong>Foydalanuvchi</strong>
@@ -98,7 +98,7 @@
 <NavMenu />
 
 @code{
-    private TelegramUser? user;
+    private WebAppUser? user;
     private bool isInitialized = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
