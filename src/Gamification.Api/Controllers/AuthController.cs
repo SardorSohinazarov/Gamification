@@ -18,7 +18,7 @@ namespace Gamification.Api.Controllers
         }
 
         [HttpPost("telegram")]
-        public async Task<Result<TokenDto>> Login([FromBody] TelegramAuthData telegramAuthData)
+        public async Task<Result<TokenDto>> Login([FromBody] WebAppUser telegramAuthData)
         {
             var token = await _accountService.LoginAsync(telegramAuthData);
             return Result<TokenDto>.Success(token);

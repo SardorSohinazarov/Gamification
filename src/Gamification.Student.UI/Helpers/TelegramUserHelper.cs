@@ -26,11 +26,14 @@ namespace Gamification.Student.UI.Helpers
 
             try
             {
-                var telegramData = await _jsRuntime.InvokeAsync<WebAppInitData>("getTelegramData");
+                var webAppInitDataString = await _jsRuntime.InvokeAsync<string>("getTelegramData");
+                var webAppInitData = ParseInitData(webAppInitDataString);
+                var user = webAppInitData.user;
+                user.initData = webAppInitDataString;
 
-                await LoginAsync(telegramData);
+                await LoginAsync(user);
 
-                return telegramData.user;
+                return user;
             }
             catch (JSException ex)
             {
@@ -39,7 +42,7 @@ namespace Gamification.Student.UI.Helpers
             }
         }
 
-        private async Task LoginAsync(WebAppInitData telegramData)
+        private async Task LoginAsync(WebAppUser telegramData)
         {
             try
             {
@@ -77,5 +80,43 @@ namespace Gamification.Student.UI.Helpers
             await _jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "refreshToken", tokenDto.RefreshToken);
             await _jsRuntime.InvokeVoidAsync("sessionStorage.setItem", "refreshTokenExpireDate", tokenDto.RefreshTokenExpireDate.ToString("o"));
         }
+
+        private WebAppInitData ParseInitData(string initDataString)
+        {
+            var query = System.Web.HttpUtility.ParseQueryString(initDataString);
+
+            var initData = new WebAppInitData
+            {
+                auth_date = query["auth_date"],
+                hash = query["hash"],
+                query_id = query["query_id"],
+                chat_type = query["chat_type"],
+                chat_instance = query["chat_instance"],
+                start_param = query["start_param"],
+                signature = query["signature"],
+                can_send_after = int.TryParse(query["can_send_after"], out var csa) ? csa : null
+            };
+
+            // Parse user
+            if (query["user"] is string userJson)
+            {
+                initData.user = System.Text.Json.JsonSerializer.Deserialize<WebAppUser>(userJson);
+            }
+
+            // Parse chat (optional)
+            if (query["chat"] is string chatJson)
+            {
+                initData.chat = System.Text.Json.JsonSerializer.Deserialize<WebAppChat>(chatJson);
+            }
+
+            // Parse receiver (optional)
+            if (query["receiver"] is string receiverJson)
+            {
+                initData.receiver = System.Text.Json.JsonSerializer.Deserialize<WebAppUser>(receiverJson);
+            }
+
+            return initData;
+        }
+
     }
 }

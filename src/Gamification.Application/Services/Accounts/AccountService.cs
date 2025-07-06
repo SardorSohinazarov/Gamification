@@ -30,27 +30,27 @@ namespace Gamification.Application.Services.Accounts
             throw new NotImplementedException();
         }
 
-        public async Task<TokenDto> LoginAsync(TelegramAuthData telegramAuthData)
+        public async Task<TokenDto> LoginAsync(WebAppUser telegramAuthData)
         {
             var isValidUser = _telegramHashVerifier
-                .VerifyHash(telegramAuthData);
+                .Validate(telegramAuthData.initData);
 
-            if (!isValidUser)
+            if (!isValidUser.succes)
             {
-                throw new UnauthorizedAccessException("Invalid Telegram authentication data.");
+                throw new UnauthorizedAccessException(isValidUser.error);
             }
 
             var user = await _gamificationDb.Users
-                .FirstOrDefaultAsync(u => u.TelegramId == telegramAuthData.User.Id);
+                .FirstOrDefaultAsync(u => u.TelegramId == telegramAuthData.id);
             if (user == null)
             {
                 user = new User
                 {
-                    TelegramId = telegramAuthData.User.Id,
-                    FirstName = telegramAuthData.User.First_name,
-                    LastName = telegramAuthData.User.Last_name,
-                    Username = telegramAuthData.User.Username,
-                    LanguageCode = telegramAuthData.User.Language_code,
+                    TelegramId = telegramAuthData.id,
+                    FirstName = telegramAuthData.first_name,
+                    LastName = telegramAuthData.last_name,
+                    Username = telegramAuthData.username,
+                    LanguageCode = telegramAuthData.language_code,
                 };
                 var entry = await _gamificationDb.Users.AddAsync(user);
                 await _gamificationDb.SaveChangesAsync();
