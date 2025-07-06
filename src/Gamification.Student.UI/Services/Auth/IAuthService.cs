@@ -5,6 +5,6 @@ namespace Gamification.Student.UI.Services.Auth
 {
     public interface IAuthService
     {
-        Task<TokenDto> LoginAsync(WebAppUser telegramAuthData);
+        Task<TokenDto> LoginAsync(WebAppInitData telegramAuthData);
     }
 }

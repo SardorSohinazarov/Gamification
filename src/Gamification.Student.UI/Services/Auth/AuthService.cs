@@ -13,7 +13,7 @@ namespace Gamification.Student.UI.Services.Auth
             _httpClient = httpClient;
         }
 
-        public async Task<TokenDto> LoginAsync(WebAppUser telegramAuthData)
+        public async Task<TokenDto> LoginAsync(WebAppInitData telegramAuthData)
         {
             try
             {

@@ -28,9 +28,9 @@ namespace Gamification.Student.UI.Helpers
             {
                 var telegramData = await _jsRuntime.InvokeAsync<WebAppInitData>("getTelegramData");
 
-                await LoginAsync(telegramData.User);
+                await LoginAsync(telegramData);
 
-                return telegramData.User;
+                return telegramData.user;
             }
             catch (JSException ex)
             {
@@ -39,7 +39,7 @@ namespace Gamification.Student.UI.Helpers
             }
         }
 
-        private async Task LoginAsync(WebAppUser telegramData)
+        private async Task LoginAsync(WebAppInitData telegramData)
         {
             try
             {

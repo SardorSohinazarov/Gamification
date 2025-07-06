@@ -15,7 +15,7 @@ namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class TestsController : ControllerBase
     {
         private readonly ITestsService _testsService;

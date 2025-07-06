@@ -2,36 +2,39 @@
 {
     public class WebAppInitData
     {
-        public string? QueryId { get; set; }
-        public WebAppUser? User { get; set; }
-        public WebAppUser? Receiver { get; set; }
-        public WebAppChat? Chat { get; set; }
-        public string? ChatType { get; set; }
-        public string? ChatInstance { get; set; }
-        public string? StartParam { get; set; }
-        public int? CanSendAfter { get; set; }
-        public long AuthDate { get; set; }
-        public string Hash { get; set; } = default!;
-        public string? Signature { get; set; }
+        public string? query_id { get; set; }
+        public WebAppUser? user { get; set; }
+        public WebAppUser? receiver { get; set; }
+        public WebAppChat? chat { get; set; }
+        public string? chat_type { get; set; }
+        public string? chat_instance { get; set; }
+        public string? start_param { get; set; }
+        public int? can_send_after { get; set; }
+        public long auth_date { get; set; }
+        public string hash { get; set; } = default!;
+        public string? signature { get; set; }
     }
 
     public class WebAppUser
     {
-        public long Id { get; set; }
-        public bool IsBot { get; set; }
-        public string FirstName { get; set; } = default!;
-        public string? LastName { get; set; }
-        public string? Username { get; set; }
-        public string? LanguageCode { get; set; }
-        public string? PhotoUrl { get; set; }
+        public long id { get; set; }
+        public bool is_bot { get; set; }
+        public string first_name { get; set; } = default!;
+        public string? last_name { get; set; }
+        public string? username { get; set; }
+        public string? language_code { get; set; }
+        public bool? is_premium { get; set; }
+        public bool? added_to_attachment_menu { get; set; }
+        public bool? allows_write_to_pm { get; set; }
+        public string? photo_url { get; set; }
     }
 
     public class WebAppChat
     {
-        public long Id { get; set; }
-        public string Type { get; set; } = default!;
-        public string? Title { get; set; }
-        public string? Username { get; set; }
-        public string? PhotoUrl { get; set; }
+        public long id { get; set; }
+        public string type { get; set; } = default!;
+        public string? title { get; set; }
+        public string? username { get; set; }
+        public string? photo_url { get; set; }
     }
 }
