@@ -1,8 +1,9 @@
 ﻿using Common.ServiceAttribute;
-using Gamification.Application.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace Gamification.Application.Helpers
 {
@@ -16,73 +17,67 @@ namespace Gamification.Application.Helpers
             _configuration = configuration;
         }
 
-        public bool VerifyHash(TelegramAuthData data)
+        [HttpPost("validate")]
+        public (bool succes, string error) Validate(string initData)
         {
+            // Parse string initData from telegram.
+            var data = HttpUtility.ParseQueryString(initData);
+
+            // Put data in a alphabetically sorted dict.
+            var dataDict = new SortedDictionary<string, string>(
+                data.AllKeys.ToDictionary(x => x!, x => data[x]!),
+                StringComparer.Ordinal);
+
+            // https://core.telegram.org/bots/webapps#validating-data-received-via-the-web-app:
+            // Data-check-string is a chain of all received fields,
+            // sorted alphabetically.
+            // in the format key=<value>.
+            // with a line feed character ('\n', 0x0A) used as separator.
+            // e.g., 'auth_date=<auth_date>\nquery_id=<query_id>\nuser=<user>'
+            var dataCheckString = string.Join(
+                '\n', dataDict.Where(x => x.Key != "hash") // Hash should be removed.
+                    .Select(x => $"{x.Key}={x.Value}")); // like auth_date=<auth_date> ..
+
+            // secrecKey is the HMAC-SHA-256 signature of the bot's token
+            // with the constant string WebAppData used as a key.
+
             var token = _configuration["TelegramBot:Token"];
-            var secretKey = SHA256.HashData(Encoding.UTF8.GetBytes(token)); // ⚠️ bu juda muhim
+            var constantKey = "WebAppData";
 
-            // Dictionary to string
-            var fields = new List<string>
+            var secretKey = ComputeHMACSHA256(
+                Encoding.UTF8.GetBytes(constantKey), // WebAppData
+                Encoding.UTF8.GetBytes(token)); // Bot's token
+
+            var generatedHash = ComputeHMACSHA256(
+                secretKey,
+                Encoding.UTF8.GetBytes(dataCheckString)); // data_check_string
+
+            // Convert received hash from telegram to a byte array.
+            var actualHash = Convert.FromHexString(dataDict["hash"]); // .NET 5.0 
+
+            // Compare our hash with the one from telegram.
+            if (actualHash.SequenceEqual(generatedHash))
             {
-                $"auth_date={data.Auth_date}",
-                $"id={data.User.Id}"
-            };
+                // Optionally, check the auth_date to prevent outdated data
+                if (dataDict.TryGetValue("auth_date", out var authDateStr) && long.TryParse(authDateStr, out var authDate))
+                {
+                    var authDateTime = DateTimeOffset.FromUnixTimeSeconds(authDate);
+                    if (authDateTime < DateTimeOffset.UtcNow.AddMinutes(-5))
+                    {
+                        return (false, "Auth date is too old");
+                    }
+                }
 
-            if (!string.IsNullOrEmpty(data.User.First_name))
-                fields.Add($"first_name={data.User.First_name}");
-            if (!string.IsNullOrEmpty(data.User.Last_name))
-                fields.Add($"last_name={data.User.Last_name}");
-            if (!string.IsNullOrEmpty(data.User.Username))
-                fields.Add($"username={data.User.Username}");
-            if (!string.IsNullOrEmpty(data.User.Language_code))
-                fields.Add($"language_code={data.User.Language_code}");
-            if (!string.IsNullOrEmpty(data.Query_id))
-                fields.Add($"query_id={data.Query_id}");
-            if (!string.IsNullOrEmpty(data.Start_param))
-                fields.Add($"start_param={data.Start_param}");
+                return (true,"Ok");
+            }
 
-            fields.Sort(); // 🔐 muhim: alfavit bo‘yicha
-            var dataCheckString = string.Join("\n", fields);
-
-            // HMAC-SHA256 orqali hash hisoblash
-            using var hmac = new HMACSHA256(secretKey);
-            var hashBytes = hmac.ComputeHash(Encoding.UTF8.GetBytes(dataCheckString));
-            var computedHash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-
-            // Debug uchun log qilish
-            Console.WriteLine("dataCheckString:\n" + dataCheckString);
-            Console.WriteLine("expected hash: " + data.Hash.ToLower());
-            Console.WriteLine("computed hash: " + computedHash);
-
-            return computedHash == data.Hash.ToLowerInvariant();
+            return (false,"Invalid data");
         }
 
-
-        //public bool VerifyHash(TelegramAuthData data)
-        //{
-        //    var authData = new SortedDictionary<string, string>
-        //    {
-        //        ["auth_date"] = data.Auth_date,
-        //        ["id"] = data.User.Id.ToString()
-        //    };
-
-        //    if (!string.IsNullOrEmpty(data.User.First_name)) authData["first_name"] = data.User.First_name;
-        //    if (!string.IsNullOrEmpty(data.User.Last_name)) authData["last_name"] = data.User.Last_name;
-        //    if (!string.IsNullOrEmpty(data.User.Username)) authData["username"] = data.User.Username;
-        //    if (!string.IsNullOrEmpty(data.User.Language_code)) authData["language_code"] = data.User.Language_code;
-
-        //    if (!string.IsNullOrEmpty(data.Query_id)) authData["query_id"] = data.Query_id;
-        //    if (!string.IsNullOrEmpty(data.Start_param)) authData["start_param"] = data.Start_param;
-
-        //    var dataCheckString = string.Join("\n", authData.Select(kvp => $"{kvp.Key}={kvp.Value}"));
-
-        //    var token = _configuration["TelegramBot:Token"];
-
-        //    using var hmac = new HMACSHA256(Encoding.UTF8.GetBytes("WebAppData:" + token));
-        //    var hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(dataCheckString));
-        //    var hex = BitConverter.ToString(hash).Replace("-", "").ToLower();
-
-        //    return hex == data.Hash.ToLower();
-        //}
+        private static byte[] ComputeHMACSHA256(byte[] key, byte[] data)
+        {
+            using var hmac = new HMACSHA256(key);
+            return hmac.ComputeHash(data);
+        }
     }
 }
