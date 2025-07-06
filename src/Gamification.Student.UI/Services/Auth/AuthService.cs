@@ -13,11 +13,11 @@ namespace Gamification.Student.UI.Services.Auth
             _httpClient = httpClient;
         }
 
-        public async Task<TokenDto> LoginAsync(WebAppUser telegramAuthData)
+        public async Task<TokenDto> LoginAsync(WebAppUser telegramAuthData, string initData)
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/auth/telegram", telegramAuthData);
+                var response = await _httpClient.PostAsJsonAsync("api/auth/telegram", new{ user = telegramAuthData, initData = initData });
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<TokenDto>();

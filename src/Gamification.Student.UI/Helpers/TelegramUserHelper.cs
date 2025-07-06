@@ -2,6 +2,7 @@
 using Gamification.Student.UI.Models.Telegram;
 using Gamification.Student.UI.Services.Auth;
 using Microsoft.JSInterop;
+using System.Text.Json;
 
 namespace Gamification.Student.UI.Helpers
 {
@@ -27,11 +28,18 @@ namespace Gamification.Student.UI.Helpers
             try
             {
                 var webAppInitDataString = await _jsRuntime.InvokeAsync<string>("getTelegramData");
-                var webAppInitData = ParseInitData(webAppInitDataString);
-                var user = webAppInitData.user;
-                user.initData = webAppInitDataString;
 
-                await LoginAsync(user);
+                Console.Error.WriteLine($"WebAppInitData: {webAppInitDataString}");
+                if (string.IsNullOrEmpty(webAppInitDataString))
+                {
+                    Console.Error.WriteLine("WebAppInitData is null or empty.");
+                    return null;
+                }
+
+                var webAppInitData = JsonSerializer.Deserialize<WebAppInitData>(webAppInitDataString);
+                var user = webAppInitData.user;
+
+                await LoginAsync(user, webAppInitDataString);
 
                 return user;
             }
@@ -42,11 +50,11 @@ namespace Gamification.Student.UI.Helpers
             }
         }
 
-        private async Task LoginAsync(WebAppUser telegramData)
+        private async Task LoginAsync(WebAppUser telegramData, string initData)
         {
             try
             {
-                var tokenDto = await _authService.LoginAsync(telegramData);
+                var tokenDto = await _authService.LoginAsync(telegramData, initData);
                 if (tokenDto != null && !string.IsNullOrEmpty(tokenDto.AccessToken))
                 {
                     await SetTokenAsync(tokenDto);
