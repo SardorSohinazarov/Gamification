@@ -1,10 +1,11 @@
 ﻿@using Gamification.Student.UI.Extensions
 @using Gamification.Student.UI.Models.Tests
+
 <div class="page" id="question">
     <h2>@question.Text</h2>
 
     <div class="variants">
-        @foreach (var answer in question.Answers.Shuffle())
+        @foreach (var answer in shuffledAnswers)
         {
             var isSelected = selectedAnswerIds.Contains(answer.Id);
             <button style="background-color:@(isSelected ? "green":"#a5ddff")"
@@ -20,6 +21,18 @@
     [Parameter] public QuestionViewModel question { get; set; }
     [Parameter] public EventCallback<List<int>> OnOptionsSelected { get; set; }
     [Parameter] public List<int> selectedAnswerIds { get; set; } = new();
+
+    private AnswerViewModel[] shuffledAnswers;
+    private int? lastQuestionId = null;
+
+    protected override void OnParametersSet()
+    {
+        if (question != null && question.Id != lastQuestionId)
+        {
+            shuffledAnswers = question.Answers.Shuffle();
+            lastQuestionId = question.Id;
+        }
+    }
 
     private void ToggleSelect(int id)
     {
