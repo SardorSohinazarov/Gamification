@@ -1,9 +1,10 @@
-﻿@using Gamification.Student.UI.Models.Tests
+﻿@using Gamification.Student.UI.Extensions
+@using Gamification.Student.UI.Models.Tests
 <div class="page" id="question">
     <h2>@question.Text</h2>
 
     <div class="variants">
-        @foreach (var answer in question.Answers)
+        @foreach (var answer in question.Answers.Shuffle())
         {
             var isSelected = selectedAnswerIds.Contains(answer.Id);
             <button style="background-color:@(isSelected ? "green":"#a5ddff")"

@@ -1,5 +1,6 @@
 ﻿@page "/quiz/{id:int}"
 @using System.Text.Json
+@using Gamification.Student.UI.Extensions
 @using Gamification.Student.UI.Models.Quiz
 @using Gamification.Student.UI.Models.Tests
 @using Gamification.Student.UI.Services.Quiz
@@ -78,7 +79,7 @@
     [Parameter]
     public int id { get; set; }
 
-    private List<QuestionViewModel> Questions;
+    private QuestionViewModel[] Questions;
     private QuestionViewModel? CurrentQuestion;
     private int currentIndex = 0;
     private bool isFinished = false;
@@ -88,9 +89,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Questions = await QuizService.GetQuestionsAsync(id);
+        var questions = await QuizService.GetQuestionsAsync(id);
+        Questions = questions.Shuffle();
 
-        if (Questions is { Count: > 0 })
+        if (Questions.Length > 0)
             CurrentQuestion = Questions[currentIndex];
     }
 
@@ -107,7 +109,7 @@
 
     private void NextQuestion()
     {
-        if (currentIndex + 1 < Questions.Count)
+        if (currentIndex + 1 < Questions.Length)
         {
             currentIndex++;
             CurrentQuestion = Questions[currentIndex];
